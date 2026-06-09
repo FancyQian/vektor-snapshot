@@ -1186,8 +1186,8 @@
           <span class="arch-svc">Flow</span>
           <span class="arch-svc">FlowIQ</span>
           <span class="arch-svc">Profiling</span>
-          <span class="arch-svc thru">Identity 贯穿</span>
-          <span class="arch-svc thru">Forge 托底硬件</span>
+          <span class="arch-svc thru" data-i18n="arch.svc.identity">Identity 贯穿</span>
+          <span class="arch-svc thru" data-i18n="arch.svc.forge">Forge 托底硬件</span>
         </div>
       </div>
 
@@ -1328,7 +1328,7 @@
         <div class="rn-body rn-watch">
           <div class="rn-head"><span class="rn-phase" data-i18n="river.past.s1.phase">阶段 1</span><h3 data-i18n="river.past.s1.h3">设备身份 · Identity</h3></div>
           <p data-i18n="river.past.s1.p">给每个客户端一个跨 reboot / 实例重排都稳定的 <code>StableId</code>（UUID v4），保证身份生命周期一致性。这是后续所有"按 client 归因"能力的锚点。</p>
-          <div class="chips"><span class="chip">vektor-identity</span><span class="chip">StableId / MAC / IP</span><span class="chip">lifecycle 一致性</span></div>
+          <div class="chips"><span class="chip">vektor-identity</span><span class="chip">StableId / MAC / IP</span><span class="chip" data-i18n="river.past.s1.chip.lifecycle">lifecycle 一致性</span></div>
         </div>
       </div>
 
@@ -1380,7 +1380,7 @@
         <div class="rn-rail"><span class="rn-dot"></span></div>
         <div class="rn-body rn-watch">
           <div class="rn-head"><span class="rn-phase" data-i18n="river.future.qoe.phase">下一步</span><h3 data-i18n="river.future.qoe.h3">QoE 体验度量</h3><span class="planned" data-i18n="river.future.qoe.planned">计划中</span></div>
-          <div class="rn-oid">三类 QoE + 意图驱动阈值</div>
+          <div class="rn-oid" data-i18n="river.future.qoe.oid">三类 QoE + 意图驱动阈值</div>
           <p data-i18n="river.future.qoe.p">不追求纯理论指标，而是<strong style="color:var(--ink)">识别趋势、检测对正常行为的偏离</strong>，在用户被影响前触发动作。</p>
           <ul class="rn-mini">
             <li data-i18n="river.future.qoe.li0">application QoE（应用级）</li>
@@ -1892,7 +1892,7 @@
       'pos.point.neutral.h3': 'Value-neutral fact output',
       'pos.point.neutral.p': 'The device only answers "which resource is saturated, and who is consuming it heavily" — it never decides "whom to protect" on the user\'s behalf. That value judgement is left to the cloud, which holds the user context.',
       'pos.point.evolve.h3': 'A structure built for evolution',
-      'pos.point.evolve.p': 'Today\'s physical-fact structure is the feature vector for tomorrow\'s distilled model. Keep the structure clean, and the later Cloud LLM → on-device model descent needs no rework.',
+      'pos.point.evolve.p': 'Today\'s physical-fact structure is the feature vector for tomorrow\'s distilled model. Keep the structure clean, and the later Cloud LLM → on-device model distillation needs no rework.',
 
       'river.tag': '03 · The Time River',
       'river.h2': 'From the source to this moment, and onward',
@@ -1904,6 +1904,7 @@
       'river.past.s1.phase': 'Phase 1',
       'river.past.s1.h3': 'Device Identity · Identity',
       'river.past.s1.p': 'Gives every client a <code>StableId</code> (UUID v4) that stays stable across reboot / instance reordering, with a consistent identity lifecycle. This is the anchor for every later "per-client attribution" capability.',
+      'river.past.s1.chip.lifecycle': 'lifecycle consistency',
       'river.past.s2.phase': 'Phase 2',
       'river.past.s2.h3': 'Northbound Exposure · Northbound',
       'river.past.s2.p': 'As an amxrt-hosted HAPI provider, it exposes the <code>Device.X_VEKLUS_*</code> business model over USP and supports client USP notifications. This is the prerequisite for cloud-edge dialogue.',
@@ -1914,19 +1915,19 @@
       'river.past.s4.h3': 'Sensing · FlowIQ + Profiling',
       'river.past.s4.p': 'A standalone FlowIQ service maintains a per-flow bytes_rate sliding window and resolves IP→MAC; Profiling supplies device profiles. The device now has fine-grained sensing — "seeing every flow, every device".',
 
-      'river.now.youAreHere': '▼ YOU ARE HERE · 你在这里',
+      'river.now.youAreHere': '▼ YOU ARE HERE',
       'river.now.title': 'This moment · all our energy is on these two',
-      'river.now.intro': 'The river in the previous section — the past already built, the future already on the roadmap — is the <strong style="color:var(--ink)">full map</strong> of our work. And <strong style="color:var(--ink)">right now</strong>, the team\'s entire focus is pressed onto the <strong style="color:var(--ink)">two real device-to-device end-to-end tracks</strong> at the center of that map — the two that Network X 2026 has us own, marked <strong style="color:var(--ink)">P0 / real delivery</strong>: one answers <strong style="color:var(--ink)">"who is saturating the network right now"</strong>, the other <strong style="color:var(--ink)">"what this home\'s rhythm looks like"</strong>.',
+      'river.now.intro': 'The river in the previous section — the past already built, the future already on the roadmap — is the <strong style="color:var(--ink)">full map</strong> of our work. And <strong style="color:var(--ink)">right now</strong>, the team\'s entire focus is pressed onto the <strong style="color:var(--ink)">two real-device end-to-end tracks</strong> at the center of that map — the two that Network X 2026 has us own, marked <strong style="color:var(--ink)">P0 / real delivery</strong>: one answers <strong style="color:var(--ink)">"who is saturating the network right now"</strong>, the other <strong style="color:var(--ink)">"what this home\'s rhythm looks like"</strong>.',
       'river.now.pillar.bw.uc': 'UC1 · Silent Autonomy · B1 Autonomous Network Care',
       'river.now.pillar.bw.h3': 'Bandwidth Contention · Hardware-in-the-Loop E2E',
       'river.now.pillar.bw.sub': 'Diagnose → self-heal → ticket closure, running on real silicon',
       'river.now.pillar.bw.p': 'Locally identify "who saturated the bandwidth", de-prioritize via QoS so the affected experience recovers, and auto-close the ticket — all <strong>autonomous on-device, ahead of the user noticing</strong>. This is the headline scenario of the M1 golden 5 minutes.',
       'river.now.pillar.bw.prio': 'M1 · P0 real device, live',
       'river.now.pillar.bw.pipe': '<b>Detect</b> → <b>Evidence</b> → <b>Act</b> → <b>Verify</b><br />Medium × role orthogonal model · DataElements topology with recursive attribution across mesh · value-neutral fact output',
-      'river.now.pillar.pf.uc': 'UC3 Dimension 1 · UC6 Digital Partnering / PIP / Elder Care',
+      'river.now.pillar.pf.uc': 'UC3 Dimension 1 · UC6 Digital Parenting / PIP / Elder Care',
       'river.now.pillar.pf.h3': 'User Profiling · Home Rhythm Engine',
       'river.now.pillar.pf.sub': 'Local-first behavioral profiling; PII never leaves the router',
-      'river.now.pillar.pf.p': 'Learns each device\'s and each home\'s <strong>daily rhythm and usage patterns</strong>, emits anonymized segments, and powers predictive protection, digital partnering and precise profiling across multiple demo tracks — the shared foundation for UC3 and UC6.',
+      'river.now.pillar.pf.p': 'Learns each device\'s and each home\'s <strong>daily rhythm and usage patterns</strong>, emits anonymized segments, and powers predictive protection, digital parenting and precise profiling across multiple demo tracks — the shared foundation for UC3 and UC6.',
       'river.now.pillar.pf.prio': 'M1 · real delivery (multiple demo tracks)',
       'river.now.pillar.pf.pipe': '<b>L0</b> Session Facts → <b>L1</b> Buckets → <b>L2</b> Slot Profiles → <b>L3</b> Pattern → <b>L4</b> Head<br />3h bucketing · EMA slot profiles · Segments not Identities (edge anonymization)',
       'river.now.card.badge': 'in progress',
@@ -1955,6 +1956,7 @@
       'river.future.steer.li2': 'post-association client steering',
       'river.future.qoe.phase': 'Next',
       'river.future.qoe.h3': 'QoE Experience Metrics',
+      'river.future.qoe.oid': 'three QoE classes + intent-driven thresholds',
       'river.future.qoe.planned': 'planned',
       'river.future.qoe.p': 'Not chasing purely theoretical metrics, but <strong style="color:var(--ink)">spotting trends and deviations from normal behavior</strong>, triggering action before the user is impacted.',
       'river.future.qoe.li0': 'application QoE (per-app)',
@@ -1992,7 +1994,7 @@
       'cx.api.cloud.h4': 'Cheap to digest / costly to rework',
       'cx.api.cloud.p': 'Cut the facts cleanly and the cloud LLM reasons in one hop; cut them poorly and the cloud must reverse-engineer and re-fit device semantics repeatedly.',
       'cx.api.cloud.ex': 'same facts → different context → different decision',
-      'cx.api.cost': 'So the cost here is <b>bidirectional</b>: design the neutral API well and <span class="em">the cloud\'s overall cost drops</span> — the LLM digests directly, zero reverse-engineering; design it sloppily and the cloud reworks repeatedly, the cost spilling back across the contract surface. And <b>today\'s fact structure for each case is the feature vector for tomorrow\'s distilled model</b> — cut it cleanly now and the later Cloud LLM → on-device model descent needs no rework. <b>This is not the cost of writing code; it is the cost of design methodology</b> — and it is exactly where the Care Engine spends the most hours, and where it should least be interrupted.',
+      'cx.api.cost': 'So the cost here is <b>bidirectional</b>: design the neutral API well and <span class="em">the cloud\'s overall cost drops</span> — the LLM digests directly, zero reverse-engineering; design it sloppily and the cloud reworks repeatedly, the cost spilling back across the contract surface. And <b>today\'s fact structure for each case is the feature vector for tomorrow\'s distilled model</b> — cut it cleanly now and the later Cloud LLM → on-device model distillation needs no rework. <b>This is not the cost of writing code; it is the cost of design methodology</b> — and it is exactly where the Care Engine spends the most hours, and where it should least be interrupted.',
 
       'svc.tag': '06 · Service Capabilities',
       'svc.h2': 'Behind these two tracks is a full row of substantial services',
@@ -2037,6 +2039,8 @@
       'arch.layer.domain': 'location coordinator — location-level coordination, carrying business extensions',
       'arch.layer.edge': 'Platform adaptation — converges platform-native + mesh differences into the canonical <code>Device.*</code>',
       'arch.svcs.label': 'Capability services:',
+      'arch.svc.identity': 'Identity throughout',
+      'arch.svc.forge': 'Forge underpins hardware',
       'arch.contract.t': 'Neutral API contract surface',
       'arch.contract.d': 'Snapshot (device sends facts) ⇄ SubmitIntent (cloud replies intent) · value-neutral · stable schema',
       'arch.zone.cloud': 'Cloud + frontend · CLOUD (decide with context · present)',
@@ -2164,7 +2168,7 @@
       'pos.point.neutral.h3': 'פלט עובדתי ניטרלי',
       'pos.point.neutral.p': 'המכשיר עונה רק "איזה משאב רווי, ומי צורך אותו בכבדות" — לעולם אינו מחליט "את מי להגן" במקום המשתמש. שיפוט ערכי זה נשאר לענן, המחזיק בהקשר המשתמש.',
       'pos.point.evolve.h3': 'מבנה הבנוי להתפתחות',
-      'pos.point.evolve.p': 'מבנה העובדות הפיזיות של היום הוא וקטור המאפיינים של מודל מזוקק של המחר. שמרו על מבנה נקי, וההורדה המאוחרת של <bdi>Cloud LLM</bdi> ← מודל בצד המכשיר לא תדרוש עבודה חוזרת.',
+      'pos.point.evolve.p': 'מבנה העובדות הפיזיות של היום הוא וקטור המאפיינים של מודל מזוקק של המחר. שמרו על מבנה נקי, והזיקוק המאוחר של <bdi>Cloud LLM</bdi> למודל בצד המכשיר לא ידרוש עבודה חוזרת.',
 
       'river.tag': '03 · נהר הזמן',
       'river.h2': 'מהמקור אל הרגע הזה, והלאה',
@@ -2176,6 +2180,7 @@
       'river.past.s1.phase': 'שלב 1',
       'river.past.s1.h3': 'זהות מכשיר · <bdi>Identity</bdi>',
       'river.past.s1.p': 'מעניק לכל לקוח <code>StableId</code> (<bdi>UUID v4</bdi>) היציב על פני אתחול / סידור מחדש של מופעים, עם מחזור חיי זהות עקבי. זהו העוגן לכל יכולת ייחוס "לפי לקוח" עתידית.',
+      'river.past.s1.chip.lifecycle': 'עקביות מחזור חיים',
       'river.past.s2.phase': 'שלב 2',
       'river.past.s2.h3': 'חשיפה צפונית · <bdi>Northbound</bdi>',
       'river.past.s2.p': 'כ־<bdi>amxrt-hosted HAPI provider</bdi>, חושף את מודל העסקים <bdi>Device.X_VEKLUS_*</bdi> מעל <bdi>USP</bdi> ותומך בהתראות <bdi>USP</bdi> ללקוח. זהו התנאי המקדים לדו־שיח ענן־קצה.',
@@ -2195,10 +2200,10 @@
       'river.now.pillar.bw.p': 'מזהה מקומית "מי רווה את רוחב הפס", מוריד עדיפות באמצעות <bdi>QoS</bdi> כך שהחוויה הנפגעת מתאוששת, וסוגר את הכרטיס אוטומטית — הכול <strong>אוטונומי על המכשיר, לפני שהמשתמש שם לב</strong>. זהו התרחיש המוביל של 5 דקות הזהב של <bdi>M1</bdi>.',
       'river.now.pillar.bw.prio': '<bdi>M1 · P0</bdi> מכשיר אמיתי, חי',
       'river.now.pillar.bw.pipe': '<b>זיהוי</b> ← <b>ראיות</b> ← <b>טיפול</b> ← <b>אימות</b><br />מודל אורתוגונלי מדיום × תפקיד · טופולוגיית <bdi>DataElements</bdi> עם ייחוס רקורסיבי על פני <bdi>mesh</bdi> · פלט עובדתי ניטרלי',
-      'river.now.pillar.pf.uc': '<bdi>UC3</bdi> ממד 1 · <bdi>UC6</bdi> שותפות דיגיטלית / <bdi>PIP</bdi> / טיפול בקשישים',
+      'river.now.pillar.pf.uc': '<bdi>UC3</bdi> ממד 1 · <bdi>UC6</bdi> הורות דיגיטלית / <bdi>PIP</bdi> / טיפול בקשישים',
       'river.now.pillar.pf.h3': '<bdi>User Profiling</bdi> · מנוע קצב הבית',
       'river.now.pillar.pf.sub': 'פרופיל התנהגותי מקומי תחילה; <bdi>PII</bdi> לעולם אינו עוזב את הנתב',
-      'river.now.pillar.pf.p': 'לומד את <strong>הקצב היומי ודפוסי השימוש</strong> של כל מכשיר וכל בית, פולט <bdi>segments</bdi> אנונימיים, ומפעיל הגנה חזויה, שותפות דיגיטלית ופרופיל מדויק על פני מספר מסלולי דמו — התשתית המשותפת ל־<bdi>UC3</bdi> ו־<bdi>UC6</bdi>.',
+      'river.now.pillar.pf.p': 'לומד את <strong>הקצב היומי ודפוסי השימוש</strong> של כל מכשיר וכל בית, פולט <bdi>segments</bdi> אנונימיים, ומפעיל הגנה חזויה, הורות דיגיטלית ופרופיל מדויק על פני מספר מסלולי דמו — התשתית המשותפת ל־<bdi>UC3</bdi> ו־<bdi>UC6</bdi>.',
       'river.now.pillar.pf.prio': '<bdi>M1</bdi> · מסירה אמיתית (מספר מסלולי דמו)',
       'river.now.pillar.pf.pipe': '<b><bdi>L0</bdi></b> <bdi>Session Facts</bdi> ← <b><bdi>L1</bdi></b> <bdi>Buckets</bdi> ← <b><bdi>L2</bdi></b> <bdi>Slot Profiles</bdi> ← <b><bdi>L3</bdi></b> <bdi>Pattern</bdi> ← <b><bdi>L4</bdi></b> <bdi>Head</bdi><br /><bdi>3h bucketing</bdi> · <bdi>EMA slot profiles</bdi> · <bdi>Segments not Identities</bdi> (אנונימיזציה בקצה)',
       'river.now.card.badge': 'בתהליך',
@@ -2227,6 +2232,7 @@
       'river.future.steer.li2': '<bdi>post-association client steering</bdi>',
       'river.future.qoe.phase': 'הבא',
       'river.future.qoe.h3': 'מדדי חוויה <bdi>QoE</bdi>',
+      'river.future.qoe.oid': 'שלוש מחלקות <bdi>QoE</bdi> + ספים מונחי כוונה',
       'river.future.qoe.planned': 'מתוכנן',
       'river.future.qoe.p': 'לא רודף אחר מדדים תיאורטיים גרידא, אלא <strong style="color:var(--ink)">מזהה מגמות וסטיות מהתנהגות נורמלית</strong>, ומפעיל פעולה לפני שהמשתמש נפגע.',
       'river.future.qoe.li0': '<bdi>application QoE</bdi> (ברמת היישום)',
@@ -2264,7 +2270,7 @@
       'cx.api.cloud.h4': 'זול לעיכול / יקר לעבודה חוזרת',
       'cx.api.cloud.p': 'חתכו את העובדות נקי וה־<bdi>LLM</bdi> בענן מסיק בקפיצה אחת; חתכו גרוע והענן חייב להנדס לאחור ולהתאים מחדש סמנטיקת מכשיר שוב ושוב.',
       'cx.api.cloud.ex': 'אותן עובדות ← הקשר שונה ← החלטה שונה',
-      'cx.api.cost': 'כך שהעלות כאן היא <b>דו־כיוונית</b>: תכננו את ה־<bdi>API</bdi> הניטרלי היטב ו<span class="em">העלות הכוללת של הענן יורדת</span> — ה־<bdi>LLM</bdi> מעכל ישירות, אפס הנדסה לאחור; תכננו ברישול והענן עובד חוזר שוב ושוב, העלות נשפכת בחזרה על פני משטח החוזה. ויותר מכך, <b>מבנה העובדות של היום לכל <bdi>case</bdi> הוא וקטור המאפיינים של מודל מזוקק של המחר</b> — חתכו נקי כעת וההורדה המאוחרת של <bdi>Cloud LLM</bdi> ← מודל בצד המכשיר לא תדרוש עבודה חוזרת. <b>זו אינה עלות כתיבת קוד; זו עלות מתודולוגיית התכנון</b> — ובדיוק שם <bdi>Care Engine</bdi> מוציא הכי הרבה שעות, ושם הכי לא כדאי להפריע לו.',
+      'cx.api.cost': 'כך שהעלות כאן היא <b>דו־כיוונית</b>: תכננו את ה־<bdi>API</bdi> הניטרלי היטב ו<span class="em">העלות הכוללת של הענן יורדת</span> — ה־<bdi>LLM</bdi> מעכל ישירות, אפס הנדסה לאחור; תכננו ברישול והענן עובד חוזר שוב ושוב, העלות נשפכת בחזרה על פני משטח החוזה. ויותר מכך, <b>מבנה העובדות של היום לכל <bdi>case</bdi> הוא וקטור המאפיינים של מודל מזוקק של המחר</b> — חתכו נקי כעת והזיקוק המאוחר של <bdi>Cloud LLM</bdi> למודל בצד המכשיר לא ידרוש עבודה חוזרת. <b>זו אינה עלות כתיבת קוד; זו עלות מתודולוגיית התכנון</b> — ובדיוק שם <bdi>Care Engine</bdi> מוציא הכי הרבה שעות, ושם הכי לא כדאי להפריע לו.',
 
       'svc.tag': '06 · יכולות שירות',
       'svc.h2': 'מאחורי שני המסלולים הללו עומדת שורה שלמה של שירותים מהותיים',
@@ -2309,6 +2315,8 @@
       'arch.layer.domain': '<bdi>location coordinator</bdi> — תיאום ברמת המיקום, נושא הרחבות עסקיות',
       'arch.layer.edge': 'התאמת פלטפורמה — ממזגת הבדלי פלטפורמה מקורית + <bdi>mesh</bdi> אל <code>Device.*</code> הקנוני',
       'arch.svcs.label': 'שירותי יכולת:',
+      'arch.svc.identity': '<bdi>Identity</bdi> לכל האורך',
+      'arch.svc.forge': '<bdi>Forge</bdi> כתשתית לחומרה',
       'arch.contract.t': 'משטח חוזה <bdi>API</bdi> ניטרלי',
       'arch.contract.d': '<bdi>Snapshot</bdi> (המכשיר שולח עובדות) ⇄ <bdi>SubmitIntent</bdi> (הענן משיב כוונה) · ניטרלי · <bdi>schema</bdi> יציב',
       'arch.zone.cloud': 'ענן + חזית · <bdi>CLOUD</bdi> (החלטה עם הקשר · הצגה)',
