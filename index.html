@@ -1410,24 +1410,6 @@
       <strong style="color:var(--ink)">这些能力彼此咬合</strong>——steering 选点要看 QoE 与 FlowIQ 负载，
       负载感知仲裁又依赖拓扑事实，正是它们之间的耦合，要求底座先稳。
     </p>
-
-    <!-- ===== 河流落点：跳出地图，回到此刻（现在 · 两条主线） ===== -->
-    <div class="river-landing reveal">
-      <div class="basin-thalweg" aria-hidden="true"></div>
-      <div class="you-are-here">
-        <span class="pin" data-i18n="river.now.youAreHere">▼ 你在这里 · YOU ARE HERE</span>
-      </div>
-      <div class="basin-title" data-i18n="river.now.title">回到此刻 · 这条河正流经的两条主线</div>
-      <p class="basin-intro" data-i18n="river.now.intro">
-        上面这条河——已建成的过去、已立项的未来——是我们工作的<strong style="color:var(--ink)">全景地图</strong>。
-        而<strong style="color:var(--ink)">此刻</strong>，团队的全部精力正压在地图中央的<strong style="color:var(--ink)">两条真实设备端到端主线</strong>上：
-        Network X 2026 里由我们承载、标着 <strong style="color:var(--ink)">P0 / 真实落地</strong> 的那两条——
-        一条解决<strong style="color:var(--ink)">"网络此刻被谁占满"</strong>，一条解决<strong style="color:var(--ink)">"这个家的节律长什么样"</strong>。
-      </p>
-      <p class="basin-next" data-i18n="river.now.next">
-        ↓ 接下来两节，先看这<strong style="color:var(--ink)">两条主线分别在攻什么</strong>，再拆开它们<strong style="color:var(--ink)">为什么难</strong>。
-      </p>
-    </div>
   </div>
 </section>
 
@@ -1435,12 +1417,25 @@
 <section>
   <div class="wrap">
     <div class="tag reveal" data-i18n="track.tag">04 · 两条主线</div>
-    <h2 class="reveal" data-i18n="track.h2">此刻，我们在攻的是两条真实主线</h2>
-    <p class="section-lede reveal" data-i18n="track.lede">
-      先说清"在做什么"，难度留到下一节。Network X 2026 的 6 个 Use Case 里，由我们承载、且标着
-      <strong style="color:var(--ink)">P0 / 真实落地</strong> 的，是这<strong style="color:var(--ink)">两条并列的设备端到端主线</strong>——
-      一条管"网络此刻被谁占满"，一条管"这个家的节律长什么样"。它们共享底层服务，但目标与场景各自独立。
-    </p>
+    <h2 class="reveal" data-i18n="track.h2">这条河正流经的，是两条真实主线</h2>
+
+    <!-- 开场：跳出地图，回到此刻（承接上一节时间河） -->
+    <div class="river-landing reveal">
+      <div class="basin-thalweg" aria-hidden="true"></div>
+      <div class="you-are-here">
+        <span class="pin" data-i18n="river.now.youAreHere">▼ 你在这里 · YOU ARE HERE</span>
+      </div>
+      <div class="basin-title" data-i18n="river.now.title">此刻，全部精力都压在这两条上</div>
+      <p class="basin-intro" data-i18n="river.now.intro">
+        上一节那条河——已建成的过去、已立项的未来——是我们工作的<strong style="color:var(--ink)">全景地图</strong>。
+        而<strong style="color:var(--ink)">此刻</strong>，团队的全部精力正压在地图中央的<strong style="color:var(--ink)">两条真实设备端到端主线</strong>上：
+        Network X 2026 里由我们承载、标着 <strong style="color:var(--ink)">P0 / 真实落地</strong> 的那两条——
+        一条解决<strong style="color:var(--ink)">"网络此刻被谁占满"</strong>，一条解决<strong style="color:var(--ink)">"这个家的节律长什么样"</strong>。
+      </p>
+      <p class="basin-next" data-i18n="river.now.next">
+        ↓ 先看这<strong style="color:var(--ink)">两条主线分别在攻什么</strong>，难度留到下一节再拆开。
+      </p>
+    </div>
 
     <div class="pillars reveal">
       <!-- 主线一：带宽争用 -->
@@ -1899,7 +1894,7 @@
       'pos.point.evolve.h3': 'A structure built for evolution',
       'pos.point.evolve.p': 'Today\'s physical-fact structure is the feature vector for tomorrow\'s distilled model. Keep the structure clean, and the later Cloud LLM → on-device model descent needs no rework.',
 
-      'river.tag': '02 · The Time River',
+      'river.tag': '03 · The Time River',
       'river.h2': 'From the source to this moment, and onward',
       'river.lede': 'This is not a project that built a demo first and backfilled the engineering. We <strong style="color:var(--ink)">made the embedded-platform foundation solid first</strong>, then layered on identity, northbound, onboarding and sensing — converging into today\'s hardware-in-the-loop. Each layer is the prerequisite for the next. Scrolling down is walking along this river.',
       'river.band.past': 'Past · Built',
@@ -1920,8 +1915,8 @@
       'river.past.s4.p': 'A standalone FlowIQ service maintains a per-flow bytes_rate sliding window and resolves IP→MAC; Profiling supplies device profiles. The device now has fine-grained sensing — "seeing every flow, every device".',
 
       'river.now.youAreHere': '▼ YOU ARE HERE · 你在这里',
-      'river.now.title': 'Now · Two real end-to-end device tracks',
-      'river.now.intro': 'Network X 2026 organizes device-side capability into 6 Use Cases. We own <strong style="color:var(--ink)">two real device-to-device end-to-end</strong> tracks — marked <strong style="color:var(--ink)">P0 / real delivery</strong> on the roadmap: one answers <strong style="color:var(--ink)">"who is saturating the network right now"</strong>, the other <strong style="color:var(--ink)">"what this home\'s rhythm looks like"</strong>. Everything in the past converges here.',
+      'river.now.title': 'This moment · all our energy is on these two',
+      'river.now.intro': 'The river in the previous section — the past already built, the future already on the roadmap — is the <strong style="color:var(--ink)">full map</strong> of our work. And <strong style="color:var(--ink)">right now</strong>, the team\'s entire focus is pressed onto the <strong style="color:var(--ink)">two real device-to-device end-to-end tracks</strong> at the center of that map — the two that Network X 2026 has us own, marked <strong style="color:var(--ink)">P0 / real delivery</strong>: one answers <strong style="color:var(--ink)">"who is saturating the network right now"</strong>, the other <strong style="color:var(--ink)">"what this home\'s rhythm looks like"</strong>.',
       'river.now.pillar.bw.uc': 'UC1 · Silent Autonomy · B1 Autonomous Network Care',
       'river.now.pillar.bw.h3': 'Bandwidth Contention · Hardware-in-the-Loop E2E',
       'river.now.pillar.bw.sub': 'Diagnose → self-heal → ticket closure, running on real silicon',
@@ -1935,7 +1930,7 @@
       'river.now.pillar.pf.prio': 'M1 · real delivery (multiple demo tracks)',
       'river.now.pillar.pf.pipe': '<b>L0</b> Session Facts → <b>L1</b> Buckets → <b>L2</b> Slot Profiles → <b>L3</b> Pattern → <b>L4</b> Head<br />3h bucketing · EMA slot profiles · Segments not Identities (edge anonymization)',
       'river.now.card.badge': 'in progress',
-      'river.now.card.h3': 'Zooming into track one: moving the loop onto real hardware',
+      'river.now.card.h3': 'Zoom in: moving this software loop onto real hardware',
       'river.now.card.p': 'An algorithm passing on fixtures is only step one. Switching from fixture playback to real DataElements topology + real FlowIQ evidence means every point on the signal chain must be re-aligned and stabilized — real RF, real traffic, real embedded resource constraints; miss any one and it does not count.',
       'river.now.rig.gw': 'gateway under test',
       'river.now.rig.pi': 'real client load',
@@ -1974,9 +1969,9 @@
       'river.future.load.li2': 'arbitration combining FlowIQ load trends + topology',
       'river.note': 'Note: Optimizer (channel / topology optimization strategy) is advancing in parallel and will flow into this river once merged. <strong style="color:var(--ink)">These capabilities interlock</strong> — steering selection looks at QoE and FlowIQ load, and load-aware arbitration depends on topology facts; it is exactly their coupling that requires the foundation to settle first.',
 
-      'cx.tag': '03 · Complexity',
-      'cx.h2': 'Why "now" is the hard step',
-      'cx.lede': 'No detail dump — just the order of magnitude. The river pauses at "now", this wide and hard point, because complexity comes from three overlapping dimensions: <strong style="color:var(--ink)">a multi-layer service architecture with separated responsibilities</strong>, <strong style="color:var(--ink)">deep integration with standard protocol stacks</strong>, and <strong style="color:var(--ink)">a detection algorithm under value-neutrality constraints</strong>.',
+      'cx.tag': '05 · Why It Is Hard',
+      'cx.h2': 'Pull the two tracks apart, and the difficulty concentrates in three dimensions',
+      'cx.lede': 'No detail dump — just the order of magnitude. The two tracks above are heavy and slow because the difficulty stacks across three mutually orthogonal dimensions: <strong style="color:var(--ink)">software</strong>, <strong style="color:var(--ink)">platform</strong>, and <strong style="color:var(--ink)">algorithm & privacy</strong>. First a row of overviews to take in the three kinds of hard, then we zoom into each.',
       'cx.layer.nb': '<b>vektor-nb</b> — amxrt-hosted HAPI provider, USP exposure and notifications',
       'cx.layer.care': '<b>On-device case triage & remediation orchestrator</b> — nearly 20 core submodules: state machine, topology projection, signals, snapshots, action orchestration',
       'cx.layer.domain': '<b>location coordinator</b> — location-level coordination, carrying <code>Device.X_VEKLUS_&lt;Business&gt;.*</code> business extensions',
@@ -1999,7 +1994,7 @@
       'cx.api.cloud.ex': 'same facts → different context → different decision',
       'cx.api.cost': 'So the cost here is <b>bidirectional</b>: design the neutral API well and <span class="em">the cloud\'s overall cost drops</span> — the LLM digests directly, zero reverse-engineering; design it sloppily and the cloud reworks repeatedly, the cost spilling back across the contract surface. And <b>today\'s fact structure for each case is the feature vector for tomorrow\'s distilled model</b> — cut it cleanly now and the later Cloud LLM → on-device model descent needs no rework. <b>This is not the cost of writing code; it is the cost of design methodology</b> — and it is exactly where the Care Engine spends the most hours, and where it should least be interrupted.',
 
-      'svc.tag': '05 · Service Capabilities',
+      'svc.tag': '06 · Service Capabilities',
       'svc.h2': 'Behind these two tracks is a full row of substantial services',
       'svc.lede': 'The two tracks do not stand on their own. Beneath them is a <strong style="color:var(--ink)">see → measure → understand</strong> capability chain: Flow sees every flow, FlowIQ turns traffic into math, Profiling translates it into a home profile; Identity runs through it all as the identity anchor, and <strong style="color:var(--ink)">Forge</strong> carries everything onto real hardware.',
       'svc.chain': '<span class="step">Flow · See</span><span class="sep">→</span><span class="step">FlowIQ · Measure</span><span class="sep">→</span><span class="step">Profiling · Understand</span><span class="sep">｜</span><span class="thru">Identity throughout</span><span class="sep">｜</span><span class="thru">Forge underneath</span>',
@@ -2025,19 +2020,128 @@
       'svc.forge.chip1': 'hardware validation / sysupgrade',
       'svc.forge.chip2': 'debug network / runbook',
 
-      'collab.tag': '06 · Collaboration Rhythm',
-      'collab.h2': 'On branch merging and the rhythm of collaboration',
-      'collab.p0': 'We <b>fully embrace the value of cross-team collaboration</b>, and we know both sides\' work will ultimately converge — that has never been the disagreement. What we want to state candidly is only <span class="key">the engineering timing of "when to converge"</span>.',
-      'collab.p1': 'The device-side surface we own right now is <b>both wide and deep</b> — two P0 headline demo tracks (bandwidth contention, home profiling) are landing for real, with a full row of services beneath (Flow / FlowIQ / Profiling / Identity) and a string of roadmapped blueprints (Steering / QoE / load-aware arbitration). This layer is a <b>different kind of engineering</b> from the cloud / app side, and it is in a <b>period of frequent real-signal calibration</b> — the recent run of commits (aligning real signals, stabilizing FlowIQ evidence, converging DataElements topology) shows this river <b>has not yet flowed to a stable integration anchor</b>.',
-      'collab.p2': 'Merging branches before that anchor appears <b>adds uncertainty rather than value</b> for both sides: our interfaces and data shapes are still adjusting with hardware testing, and premature coupling would only let each side be dragged by the other\'s unsettled state. <span class="key">Letting this river flow steadily on real hardware first, then aligning, is the more responsible way to treat the collaboration\'s outcome.</span>',
-      'collab.ask.now.h4': '▍ NOW',
-      'collab.ask.now.p': 'Give us an <b>uninterrupted runway</b> to get the bandwidth-contention hardware-in-the-loop E2E to a stable signal chain. That is the most valuable support for this collaboration right now.',
-      'collab.ask.next.h4': '▍ NEXT',
-      'collab.ask.next.p': 'Once the milestone is stable, <b>we will initiate the alignment ourselves</b>, providing clear integration interfaces and anchors so the branch merge lands in one pass, with low rework.',
-
       'closing.quote': 'Complexity is not for its own sake — it is because we are solving a real problem on real hardware.<br />With a solid foundation, convergence comes smoothly.',
       'closing.sig': '— Vektor Device Team',
-      'footer.text': 'Vektor · Engineering Snapshot · for internal collaboration only',
+      'footer.text': 'Vektor · Engineering Snapshot',
+
+      'arch.tag': '02 · System Overview',
+      'arch.h2': 'Two diagrams: the device gives facts, the cloud decides — backed by 10 standalone services',
+      'arch.lede': 'Before unpacking "what we built, what we are building, why it is hard", here is the whole picture. First the <strong style="color:var(--ink)">logical layering</strong> — the system runs along <strong style="color:var(--ink)">see → measure → understand → decide</strong>: the device side emits only <strong style="color:var(--ink)">value-neutral facts</strong>, handing them through a stable <strong style="color:var(--ink)">neutral API contract surface</strong> to the cloud to decide with context, and the frontend to present. Then the <strong style="color:var(--ink)">code structure</strong> — this layer is carried by a whole row of standalone <code>vektor-*</code> services.',
+      'arch.flow.see': 'Flow · See',
+      'arch.flow.measure': 'FlowIQ · Measure',
+      'arch.flow.understand': 'Profiling · Understand',
+      'arch.flow.decide': 'Care Engine · Triage & Act',
+      'arch.zone.device': 'Device side · ON-DEVICE (prplOS / real silicon)',
+      'arch.layer.nb': 'amxrt-hosted HAPI provider — exposes <code>Device.X_VEKLUS_*</code> to the cloud over USP',
+      'arch.layer.care': 'On-device case triage & remediation — detect · evidence · autonomous action · verify; designs a neutral fact API per case',
+      'arch.layer.domain': 'location coordinator — location-level coordination, carrying business extensions',
+      'arch.layer.edge': 'Platform adaptation — converges platform-native + mesh differences into the canonical <code>Device.*</code>',
+      'arch.svcs.label': 'Capability services:',
+      'arch.contract.t': 'Neutral API contract surface',
+      'arch.contract.d': 'Snapshot (device sends facts) ⇄ SubmitIntent (cloud replies intent) · value-neutral · stable schema',
+      'arch.zone.cloud': 'Cloud + frontend · CLOUD (decide with context · present)',
+      'arch.cloud.bn': 'Cloud decision',
+      'arch.cloud.bd': 'Makes the value judgement with user context: "whose experience matters more"; the LLM digests neutral facts directly.',
+      'arch.front.bn': 'Frontend presentation',
+      'arch.front.bd': 'Presents decisions and state to users and operations, visualizing the closed loop.',
+      'arch.integ': 'Device ⇄ cloud ⇄ frontend integration, actively advancing in parallel',
+
+      'ca.h3': 'From the code: 12 vektor-* managers, 10 of them standalone service processes',
+      'ca.lede': 'Above is the logical layering; here is the <strong style="color:var(--ink)">real code structure</strong>. The device side is not a monolith but <strong style="color:var(--ink)">10 independent service processes</strong> (each with its own <code>main.rs</code>) plus 2 shared libraries, built layer by layer — the lower is the prerequisite for the upper, arrows mark the real dependencies between crates.',
+      'ca.cap': '<b>How to read:</b> <span style="color:var(--accent)">■</span> = standalone service process (has main.rs, runs on its own) · <span style="color:var(--ink-faint)">■</span> = shared library (linked) · arrow = depends on.',
+      'ca.tier.top': 'Top consumers · business orchestration',
+      'ca.nb.cd': 'Northbound: USP exposure + notifications',
+      'ca.care.cd': 'case triage / remediation orchestration (core, ~20 submodules)',
+      'ca.pf.cd': 'behavioral profile / Persona',
+      'ca.tier.mid': 'Mid tier · traffic measurement',
+      'ca.iq.cd': 'bytes_rate sliding window · rhythm learning · IP→MAC',
+      'ca.tier.base': 'Base sensing · deep identification',
+      'ca.flow.cd': 'nDPI per-flow identification · recording / playback',
+      'ca.tier.leaf': 'Standalone base services · shared libraries',
+      'ca.edge.cd': 'platform adaptation',
+      'ca.id.cd': 'identity anchor',
+      'ca.onb.cd': 'zero-touch onboarding',
+      'ca.dom.cd': 'location coordination',
+      'ca.cli.cd': 'debug / ops',
+      'ca.pc.cd': 'profile contract',
+      'ca.tr.cd': 'TR-181 sync',
+
+      'hard.ov.d1.h3': 'Software complexity',
+      'hard.ov.d1.p': 'A multi-layer service architecture with separated responsibilities, where every case needs a value-neutral fact API.',
+      'hard.ov.d2.h3': 'Platform adaptation',
+      'hard.ov.d2.p': 'Standard gaps, vendor support and real RF pulling against each other on an open stack — what is turnkey for others, we chew through block by block.',
+      'hard.ov.d3.h3': 'Algorithm & privacy',
+      'hard.ov.d3.p': 'No public dataset; each of us records real home traffic at home and replays to tune; privacy is a boundary fixed from architecture day one.',
+      'hard.d1.head.h3': 'Software complexity · multi-layer architecture + neutral API',
+      'hard.d1.head.one': 'A service stack with separated responsibilities, and a neutral fact contract that must be reasoned out repeatedly',
+      'hard.d2.head.h3': 'Platform adaptation · "turnkey vs chewed through block by block"',
+      'hard.d2.head.one': 'Zero-touch onboarding as the sample: standard gaps, vendor support and real RF pulling against each other on an open stack',
+      'hard.d3.head.h3': 'Algorithm & privacy · tuned on real home traffic',
+      'hard.d3.head.one': 'No public dataset; each of us records traffic at home and replays it; privacy is a boundary fixed from architecture day one',
+
+      'hero.stat.modules.det': '<b>~85K lines</b> business Rust<br />~310K lines incl. libraries',
+      'hero.stat.stacks.det': '<b>prplOS</b> · <b>TR-181</b> · <b>USP</b>',
+      'hero.stat.hil.det': '<b>1</b> Gateway · <b>3</b> Raspberry Pi · <b>1</b> Mac',
+      'hero.stat.milestone.det': 'bandwidth-contention loop<br /><b>on real hardware</b>',
+      'hero.scale.repos': 'dependency repos (submodules)',
+      'hero.scale.care': 'Care Engine core submodules',
+      'hero.scale.fabric': 'Fabric: 2 engineers · 1 month, early this year',
+
+      'track.tag': '04 · The Two Tracks',
+      'track.h2': 'What this river flows through is two real tracks',
+      'river.now.next': '↓ First see <strong style="color:var(--ink)">what each of the two tracks is tackling</strong>; the difficulty we pull apart in the next section.',
+
+      'river.now.priv.badge': 'privacy-first',
+      'river.now.priv.lab': 'vektor-profiling · data privacy by design',
+      'river.now.priv.h3': 'Tuning the algorithm to "good enough" on real home traffic',
+      'river.now.priv.p': 'Profiling and bandwidth contention are <span class="hl">two parallel tracks</span>, but this one is hard elsewhere: <span class="hl">there is no public dataset</span>. Our team members <span class="hl">each record real home traffic captures at home</span>, then replay them over and over, <span class="hl">tuning the local algorithm round after round</span>, until profile quality crosses the minimum-viability bar — a slow kind of tuning, hugging the real rhythm.',
+      'river.now.priv.loop.rec.nm': 'Capture at home',
+      'river.now.priv.loop.rec.sub': 'real home traffic',
+      'river.now.priv.loop.replay.nm': 'Local replay',
+      'river.now.priv.loop.replay.sub': 'reproducible playback',
+      'river.now.priv.loop.tune.nm': 'Approach viability',
+      'river.now.priv.loop.tune.sub': 'iterate to converge',
+      'river.now.priv.guard': 'Behind this is Vektor\'s <b>second design principle — data privacy</b>: <span class="em">raw traffic and PII never leave the router</span>. Training and tuning happen on-device / locally; only anonymized segments go out. Privacy is not after-the-fact compliance but a <b>boundary fixed from architecture day one</b> — and exactly why this track cannot take the shortcut of "pulling data to the cloud for centralized training".',
+
+      'onb.lede': 'Here is a more concrete sample any engineer grasps at a glance — <strong style="color:var(--ink)">zero-touch onboarding</strong>. The same thing is often <strong style="color:var(--ink)">turnkey</strong> on a mature closed-source platform; on the prplOS open stack, we <strong style="color:var(--ink)">paved it block by block</strong>. It is not hard in algorithm but in the <strong style="color:var(--ink)">three-way pull of real silicon, standard gaps and vendor support</strong>.',
+      'onb.cap': '<b>How to read:</b> a new device connects and switches to the right network role instantly, threading along the line topology to the tail extender — <b>the green run is the link already paved</b>, that one spot at the tail is <b>amber: a known issue still to be closed</b>. We do not hide it.',
+      'onb.topo.dev.nm': 'new device plugs in',
+      'onb.topo.dev.sub': 'plug-in',
+      'onb.topo.gate.nm': 'whitelist gate',
+      'onb.topo.gate.sub': 'whitelist gate',
+      'onb.topo.gw.sub': 'HT7210 GW',
+      'onb.topo.ext.nm': 'chained Extender',
+      'onb.topo.ext.sub': 'line topology',
+      'onb.topo.tail.nm': 'tail to be solved',
+      'onb.topo.tail.sub': 'manual route',
+      'onb.topo.l0': 'MAC whitelist',
+      'onb.topo.l1': 'Role switch',
+      'onb.topo.l2': 'backhaul AP',
+      'onb.topo.l3': 'tail',
+      'onb.card.dpp.h4': 'DPP not ready → MAC whitelist as fallback',
+      'onb.card.dpp.st': '✓ paved',
+      'onb.card.dpp.c': 'The device-certificate-level <span class="k">DPP</span> onboarding scheme is not yet available. We use a <span class="k">MAC whitelist</span> as today\'s best zero-touch fallback, getting "connect and switch" working first.',
+      'onb.card.dpp.l': 'Structurally reserved for DPP: switching to a device-certificate whitelist later is a <b>smooth replacement</b>, not a rebuild.',
+      'onb.card.dm.h4': 'No standard data model → home-grown TR-181 relay',
+      'onb.card.dm.st': '↩ pragmatic compromise',
+      'onb.card.dm.c': 'Pushing the MAC whitelist down to the extender has <span class="k">no ready path in the standard data model</span>; it needs an extra <span class="k">TR-181 relay</span> method.',
+      'onb.card.dm.l': 'Already raised at a prplMesh meeting as a standardization proposal — solving the present while pushing upstream to fill the gap.',
+      'onb.card.airoha.h4': 'Airoha support missing → WiFi unstable, pragmatic compromise',
+      'onb.card.airoha.st': '↩ pragmatic compromise',
+      'onb.card.airoha.c': 'We first aimed for the advanced security mode of <span class="k">onboarding AP + backhaul AP</span>; lacking Airoha-side support, <span class="k">WiFi became unstable</span>, a detour.',
+      'onb.card.airoha.l': 'Compromised to <b>backhaul AP + predefined SSID/key + MAC whitelist</b>: sacrificing a bit of the ideal form for stable usability on real hardware.',
+      'onb.card.profile.h4': 'No standard extender profile in prplOS → figured out ourselves',
+      'onb.card.profile.st': '↩ paved ourselves',
+      'onb.card.profile.c': 'The prplOS stack has <span class="k">no ready standard extender profile scheme</span>; figuring out the onboarding form from scratch itself ate a fair amount of time.',
+      'onb.card.profile.l': 'Plus <span class="k">HT7210 GW + extender auto mode</span> was brought up item by item too — all turnkey on OpenSync.',
+      'onb.card.tail.h4': 'Line topology tail: last-hop route still to be automated',
+      'onb.card.tail.st': '⚠ to be solved',
+      'onb.card.tail.c': 'Under a <span class="k">line (chained) topology</span>, the last extender\'s <span class="k">ping route currently needs manual forwarding</span> — a known item still to be closed.',
+      'onb.card.tail.l': 'Stated honestly: it does not block the main link, but true zero-touch needs this hop automated.',
+      'onb.card.sum.h4': 'One capability, two cost curves',
+      'onb.card.sum.st': '✓ stable',
+      'onb.card.sum.c': 'The one-line config that is "turnkey" on a closed platform is, on an open stack, <span class="k">certificate scheme + standard gaps + vendor support + real RF</span> stacked into four things.',
+      'onb.card.sum.l': 'But once paved, every block became an asset we control and can evolve — that is the other side of the reason for "no rush to merge right now".',
     },
 
     he: {
@@ -2062,7 +2166,7 @@
       'pos.point.evolve.h3': 'מבנה הבנוי להתפתחות',
       'pos.point.evolve.p': 'מבנה העובדות הפיזיות של היום הוא וקטור המאפיינים של מודל מזוקק של המחר. שמרו על מבנה נקי, וההורדה המאוחרת של <bdi>Cloud LLM</bdi> ← מודל בצד המכשיר לא תדרוש עבודה חוזרת.',
 
-      'river.tag': '02 · נהר הזמן',
+      'river.tag': '03 · נהר הזמן',
       'river.h2': 'מהמקור אל הרגע הזה, והלאה',
       'river.lede': 'זהו אינו פרויקט שבנה דמו תחילה והשלים את ההנדסה אחר כך. <strong style="color:var(--ink)">קודם ביססנו היטב את תשתית הפלטפורמה המוטמעת</strong>, ואז הוספנו שכבות של זהות, צד צפוני, <bdi>onboarding</bdi> וחישה — המתכנסות אל החומרה־בלולאה של היום. כל שכבה היא תנאי מקדים לבאה. גלילה מטה היא הליכה לאורך הנהר הזה.',
       'river.band.past': 'עבר · נבנה',
@@ -2083,8 +2187,8 @@
       'river.past.s4.p': 'שירות <bdi>FlowIQ</bdi> עצמאי מתחזק חלון הזזה של <bdi>bytes_rate</bdi> לכל זרימה ופותר <bdi>IP→MAC</bdi>; <bdi>Profiling</bdi> מספק פרופילי מכשירים. למכשיר יש כעת חישה דקת־גרעין — "לראות כל זרימה, כל מכשיר".',
 
       'river.now.youAreHere': '▼ אתה כאן · YOU ARE HERE',
-      'river.now.title': 'כעת · שני מסלולי מכשיר אמיתיים מקצה לקצה',
-      'river.now.intro': '<bdi>Network X 2026</bdi> מארגן את יכולת צד המכשיר ל־6 <bdi>Use Cases</bdi>. אנו מחזיקים <strong style="color:var(--ink)">שני מסלולים אמיתיים מקצה לקצה</strong> — מסומנים <strong style="color:var(--ink)">P0 / מסירה אמיתית</strong> ב־roadmap: אחד עונה <strong style="color:var(--ink)">"מי רווה את הרשת ברגע זה"</strong>, השני <strong style="color:var(--ink)">"כיצד נראה הקצב של הבית הזה"</strong>. כל מה שבעבר מתכנס לכאן.',
+      'river.now.title': 'הרגע הזה · כל המרץ שלנו נתון לשתי אלה',
+      'river.now.intro': 'הנהר שבחלק הקודם — העבר שכבר נבנה, העתיד שכבר ב־roadmap — הוא <strong style="color:var(--ink)">המפה המלאה</strong> של עבודתנו. וכ<strong style="color:var(--ink)">רגע</strong>, מלוא המיקוד של הצוות לחוץ על <strong style="color:var(--ink)">שני המסלולים האמיתיים מקצה לקצה</strong> שבמרכז המפה — אותם שניים ש־<bdi>Network X 2026</bdi> נתן לנו, מסומנים <strong style="color:var(--ink)">P0 / מסירה אמיתית</strong>: אחד עונה <strong style="color:var(--ink)">"מי רווה את הרשת ברגע זה"</strong>, השני <strong style="color:var(--ink)">"כיצד נראה הקצב של הבית הזה"</strong>.',
       'river.now.pillar.bw.uc': '<bdi>UC1 · Silent Autonomy · B1</bdi> טיפול רשת אוטונומי',
       'river.now.pillar.bw.h3': 'תחרות רוחב פס · חומרה־בלולאה <bdi>E2E</bdi>',
       'river.now.pillar.bw.sub': 'אבחון ← ריפוי עצמי ← סגירת כרטיס, הרץ על סיליקון אמיתי',
@@ -2098,7 +2202,7 @@
       'river.now.pillar.pf.prio': '<bdi>M1</bdi> · מסירה אמיתית (מספר מסלולי דמו)',
       'river.now.pillar.pf.pipe': '<b><bdi>L0</bdi></b> <bdi>Session Facts</bdi> ← <b><bdi>L1</bdi></b> <bdi>Buckets</bdi> ← <b><bdi>L2</bdi></b> <bdi>Slot Profiles</bdi> ← <b><bdi>L3</bdi></b> <bdi>Pattern</bdi> ← <b><bdi>L4</bdi></b> <bdi>Head</bdi><br /><bdi>3h bucketing</bdi> · <bdi>EMA slot profiles</bdi> · <bdi>Segments not Identities</bdi> (אנונימיזציה בקצה)',
       'river.now.card.badge': 'בתהליך',
-      'river.now.card.h3': 'התקרבות למסלול הראשון: העברת הלולאה לחומרה אמיתית',
+      'river.now.card.h3': 'התקרבות: העברת לולאת התוכנה הזו לחומרה אמיתית',
       'river.now.card.p': 'אלגוריתם העובר על <bdi>fixtures</bdi> הוא רק שלב ראשון. מעבר מ־<bdi>fixture playback</bdi> לטופולוגיית <bdi>DataElements</bdi> אמיתית + ראיות <bdi>FlowIQ</bdi> אמיתיות פירושו שכל נקודה בשרשרת האות חייבת ליישור וייצוב מחדש — <bdi>RF</bdi> אמיתי, תעבורה אמיתית, אילוצי משאבים מוטמעים אמיתיים; פספסת אחד — זה לא נחשב.',
       'river.now.rig.gw': 'שער בבדיקה',
       'river.now.rig.pi': 'עומס לקוחות אמיתי',
@@ -2137,9 +2241,9 @@
       'river.future.load.li2': 'בוררות המשלבת מגמות עומס <bdi>FlowIQ</bdi> + טופולוגיה',
       'river.note': 'הערה: <bdi>Optimizer</bdi> (אסטרטגיית מיטוב ערוץ / טופולוגיה) מתקדם במקביל ויזרום לנהר זה לאחר המיזוג. <strong style="color:var(--ink)">היכולות הללו שלובות זו בזו</strong> — בחירת <bdi>steering</bdi> מסתכלת על <bdi>QoE</bdi> ועל עומס <bdi>FlowIQ</bdi>, ובוררות מודעת־עומס תלויה בעובדות טופולוגיה; דווקא הצימוד ביניהן דורש שהתשתית תתייצב תחילה.',
 
-      'cx.tag': '03 · מורכבות',
-      'cx.h2': 'מדוע "כעת" הוא הצעד הקשה',
-      'cx.lede': 'ללא צלילה לפרטים — רק סדר הגודל. הנהר עוצר ב"כעת", הנקודה הרחבה והקשה הזו, מפני שהמורכבות נובעת משלושה ממדים חופפים: <strong style="color:var(--ink)">ארכיטקטורת שירות רב־שכבתית עם הפרדת אחריות</strong>, <strong style="color:var(--ink)">אינטגרציה עמוקה עם מחסניות פרוטוקול תקניות</strong>, ו<strong style="color:var(--ink)">אלגוריתם זיהוי תחת אילוצי ניטרליות ערכית</strong>.',
+      'cx.tag': '05 · מדוע זה קשה',
+      'cx.h2': 'פרקו את שני המסלולים, והקושי מתרכז בשלושה ממדים',
+      'cx.lede': 'ללא צלילה לפרטים — רק סדר הגודל. שני המסלולים שלמעלה כבדים ואיטיים מפני שהקושי מצטבר על פני שלושה ממדים אורתוגונליים זה לזה: <strong style="color:var(--ink)">תוכנה</strong>, <strong style="color:var(--ink)">פלטפורמה</strong>, ו<strong style="color:var(--ink)">אלגוריתם ופרטיות</strong>. תחילה שורת סקירות שתקלוט את שלושת סוגי הקושי, ואז נתקרב לכל אחד.',
       'cx.layer.nb': '<b><bdi>vektor-nb</bdi></b> — <bdi>amxrt-hosted HAPI provider</bdi>, חשיפת <bdi>USP</bdi> והתראות',
       'cx.layer.care': '<b>מתזמר מיון וריפוי <bdi>case</bdi> בצד המכשיר</b> — כמעט 20 תת־מודולים מרכזיים: מכונת מצבים, היטל טופולוגיה, אותות, <bdi>snapshots</bdi>, תזמור פעולות',
       'cx.layer.domain': '<b><bdi>location coordinator</bdi></b> — תיאום ברמת המיקום, נושא הרחבות עסקיות <code>Device.X_VEKLUS_&lt;Business&gt;.*</code>',
@@ -2162,7 +2266,7 @@
       'cx.api.cloud.ex': 'אותן עובדות ← הקשר שונה ← החלטה שונה',
       'cx.api.cost': 'כך שהעלות כאן היא <b>דו־כיוונית</b>: תכננו את ה־<bdi>API</bdi> הניטרלי היטב ו<span class="em">העלות הכוללת של הענן יורדת</span> — ה־<bdi>LLM</bdi> מעכל ישירות, אפס הנדסה לאחור; תכננו ברישול והענן עובד חוזר שוב ושוב, העלות נשפכת בחזרה על פני משטח החוזה. ויותר מכך, <b>מבנה העובדות של היום לכל <bdi>case</bdi> הוא וקטור המאפיינים של מודל מזוקק של המחר</b> — חתכו נקי כעת וההורדה המאוחרת של <bdi>Cloud LLM</bdi> ← מודל בצד המכשיר לא תדרוש עבודה חוזרת. <b>זו אינה עלות כתיבת קוד; זו עלות מתודולוגיית התכנון</b> — ובדיוק שם <bdi>Care Engine</bdi> מוציא הכי הרבה שעות, ושם הכי לא כדאי להפריע לו.',
 
-      'svc.tag': '05 · יכולות שירות',
+      'svc.tag': '06 · יכולות שירות',
       'svc.h2': 'מאחורי שני המסלולים הללו עומדת שורה שלמה של שירותים מהותיים',
       'svc.lede': 'שני המסלולים אינם עומדים בפני עצמם. תחתיהם שרשרת יכולות <strong style="color:var(--ink)">לראות ← למדוד ← להבין</strong>: <bdi>Flow</bdi> רואה כל זרימה, <bdi>FlowIQ</bdi> הופך תעבורה למתמטיקה, <bdi>Profiling</bdi> מתרגם לפרופיל בית; <bdi>Identity</bdi> עובר דרך הכול כעוגן הזהות, ו־<strong style="color:var(--ink)"><bdi>Forge</bdi></strong> נושא הכול אל חומרה אמיתית.',
       'svc.chain': '<span class="step"><bdi>Flow</bdi> · לראות</span><span class="sep">←</span><span class="step"><bdi>FlowIQ</bdi> · למדוד</span><span class="sep">←</span><span class="step"><bdi>Profiling</bdi> · להבין</span><span class="sep">｜</span><span class="thru"><bdi>Identity</bdi> לכל האורך</span><span class="sep">｜</span><span class="thru"><bdi>Forge</bdi> מתחת</span>',
@@ -2188,19 +2292,128 @@
       'svc.forge.chip1': 'אימות חומרה / <bdi>sysupgrade</bdi>',
       'svc.forge.chip2': 'רשת <bdi>debug</bdi> / <bdi>runbook</bdi>',
 
-      'collab.tag': '06 · קצב שיתוף הפעולה',
-      'collab.h2': 'על מיזוג ענפים וקצב שיתוף הפעולה',
-      'collab.p0': 'אנחנו <b>מאמצים במלואו את ערך שיתוף הפעולה הבין־צוותי</b>, ויודעים ששתי העבודות יתכנסו בסופו של דבר — זו מעולם לא הייתה המחלוקת. מה שאנו רוצים לומר בכנות הוא רק <span class="key">העיתוי ההנדסי של "מתי להתכנס"</span>.',
-      'collab.p1': 'משטח צד המכשיר שאנו מחזיקים כעת הוא <b>רחב ועמוק כאחד</b> — שני מסלולי דמו מובילים <bdi>P0</bdi> (תחרות רוחב פס, פרופיל בית) נוחתים באמת, עם שורה שלמה של שירותים מתחת (<bdi>Flow / FlowIQ / Profiling / Identity</bdi>) ומחרוזת תוכניות שכבר אושרו (<bdi>Steering / QoE</bdi> / בוררות מודעת־עומס). שכבה זו היא <b>סוג שונה של הנדסה</b> מצד הענן / היישום, והיא ב<b>תקופה של כיול תכוף של אותות אמיתיים</b> — רצף ה־commits האחרון (יישור אותות אמיתיים, ייצוב ראיות <bdi>FlowIQ</bdi>, התכנסות טופולוגיית <bdi>DataElements</bdi>) מראה שנהר זה <b>טרם זרם אל עוגן אינטגרציה יציב</b>.',
-      'collab.p2': 'מיזוג ענפים לפני שעוגן זה מופיע <b>מוסיף אי־ודאות במקום ערך</b> לשני הצדדים: הממשקים וצורות הנתונים שלנו עדיין מתכווננים עם בדיקות החומרה, וצימוד מוקדם מדי רק יגרום לכל צד להיגרר אחר המצב הלא־יציב של האחר. <span class="key">לתת לנהר זה לזרום ביציבות על חומרה אמיתית תחילה, ואז ליישר — זו הדרך האחראית יותר להתייחס לתוצר שיתוף הפעולה.</span>',
-      'collab.ask.now.h4': '▍ כעת · NOW',
-      'collab.ask.now.p': 'תנו לנו <b>מסלול ריצה ללא הפרעה</b> כדי להביא את החומרה־בלולאה <bdi>E2E</bdi> של תחרות רוחב הפס לשרשרת אות יציבה. זו התמיכה היקרה ביותר בשיתוף הפעולה הזה כרגע.',
-      'collab.ask.next.h4': '▍ הבא · NEXT',
-      'collab.ask.next.p': 'לאחר שאבן הדרך יציבה, <b>אנחנו ניזום את היישור בעצמנו</b>, ונספק ממשקי אינטגרציה ועוגנים ברורים כך שמיזוג הענף ינחת במעבר אחד, עם מינימום עבודה חוזרת.',
-
       'closing.quote': 'מורכבות אינה לשם עצמה — אלא מפני שאנו פותרים בעיה אמיתית על חומרה אמיתית.<br />עם תשתית מוצקה, ההתכנסות מגיעה בחלקות.',
       'closing.sig': '— <bdi>Vektor Device Team</bdi>',
-      'footer.text': '<bdi>Vektor</bdi> · תמונת מצב הנדסית · לשיתוף פעולה פנימי בלבד',
+      'footer.text': '<bdi>Vektor</bdi> · תמונת מצב הנדסית · Engineering Snapshot',
+
+      'arch.tag': '02 · מבט־על מערכתי',
+      'arch.h2': 'שני תרשימים: המכשיר נותן עובדות, הענן מחליט — מאחורי הקלעים 10 שירותים עצמאיים',
+      'arch.lede': 'לפני שנפרוס "מה בנינו, מה אנו בונים, מדוע זה קשה", הנה התמונה כולה. תחילה <strong style="color:var(--ink)">השכבות הלוגיות</strong> — המערכת רצה לאורך <strong style="color:var(--ink)">לראות ← למדוד ← להבין ← להחליט</strong>: צד המכשיר פולט רק <strong style="color:var(--ink)">עובדות ניטרליות</strong>, ומעביר אותן דרך <strong style="color:var(--ink)">משטח חוזה <bdi>API</bdi> ניטרלי</strong> יציב אל הענן שמחליט עם הקשר, והחזית שמציגה. אחר כך <strong style="color:var(--ink)">מבנה הקוד</strong> — שכבה זו נישאת על שורה שלמה של שירותי <code>vektor-*</code> עצמאיים.',
+      'arch.flow.see': '<bdi>Flow</bdi> · לראות',
+      'arch.flow.measure': '<bdi>FlowIQ</bdi> · למדוד',
+      'arch.flow.understand': '<bdi>Profiling</bdi> · להבין',
+      'arch.flow.decide': '<bdi>Care Engine</bdi> · מיון וטיפול',
+      'arch.zone.device': 'צד המכשיר · <bdi>ON-DEVICE</bdi> (<bdi>prplOS</bdi> / סיליקון אמיתי)',
+      'arch.layer.nb': '<bdi>amxrt-hosted HAPI provider</bdi> — חושף את <code>Device.X_VEKLUS_*</code> לענן מעל <bdi>USP</bdi>',
+      'arch.layer.care': 'מיון וטיפול <bdi>case</bdi> בצד המכשיר — זיהוי · ראיות · פעולה אוטונומית · אימות; מתכנן <bdi>API</bdi> עובדתי ניטרלי לכל <bdi>case</bdi>',
+      'arch.layer.domain': '<bdi>location coordinator</bdi> — תיאום ברמת המיקום, נושא הרחבות עסקיות',
+      'arch.layer.edge': 'התאמת פלטפורמה — ממזגת הבדלי פלטפורמה מקורית + <bdi>mesh</bdi> אל <code>Device.*</code> הקנוני',
+      'arch.svcs.label': 'שירותי יכולת:',
+      'arch.contract.t': 'משטח חוזה <bdi>API</bdi> ניטרלי',
+      'arch.contract.d': '<bdi>Snapshot</bdi> (המכשיר שולח עובדות) ⇄ <bdi>SubmitIntent</bdi> (הענן משיב כוונה) · ניטרלי · <bdi>schema</bdi> יציב',
+      'arch.zone.cloud': 'ענן + חזית · <bdi>CLOUD</bdi> (החלטה עם הקשר · הצגה)',
+      'arch.cloud.bn': 'החלטת ענן',
+      'arch.cloud.bd': 'מבצע את השיפוט הערכי עם הקשר המשתמש: "חווייתו של מי חשובה יותר"; ה־<bdi>LLM</bdi> מעכל עובדות ניטרליות ישירות.',
+      'arch.front.bn': 'הצגה בחזית',
+      'arch.front.bd': 'מציגה החלטות ומצב למשתמשים ולתפעול, וממחישה את הלולאה הסגורה.',
+      'arch.integ': 'אינטגרציית מכשיר ⇄ ענן ⇄ חזית, מתקדמת באופן פעיל במקביל',
+
+      'ca.h3': 'מהקוד: 12 מנהלי <bdi>vektor-*</bdi>, 10 מהם תהליכי שירות עצמאיים',
+      'ca.lede': 'למעלה השכבות הלוגיות; כאן <strong style="color:var(--ink)">מבנה הקוד האמיתי</strong>. צד המכשיר אינו מונולית אלא <strong style="color:var(--ink)">10 תהליכי שירות עצמאיים</strong> (לכל אחד <code>main.rs</code> משלו) ועוד 2 ספריות משותפות, בנויים שכבה על שכבה — התחתונה תנאי מקדים לעליונה, החצים מסמנים את התלויות האמיתיות בין ה־crate־ים.',
+      'ca.cap': '<b>כיצד לקרוא:</b> <span style="color:var(--accent)">■</span> = תהליך שירות עצמאי (יש <bdi>main.rs</bdi>, רץ בעצמו) · <span style="color:var(--ink-faint)">■</span> = ספרייה משותפת (מקושרת) · חץ = תלוי במי.',
+      'ca.tier.top': 'צרכנים עליונים · תזמור עסקי',
+      'ca.nb.cd': 'צפוני: חשיפת <bdi>USP</bdi> + התראות',
+      'ca.care.cd': 'מיון / תזמור טיפול <bdi>case</bdi> (ליבה, ~20 תת־מודולים)',
+      'ca.pf.cd': 'פרופיל התנהגותי / <bdi>Persona</bdi>',
+      'ca.tier.mid': 'שכבת ביניים · מדידת תעבורה',
+      'ca.iq.cd': 'חלון הזזה <bdi>bytes_rate</bdi> · למידת קצב · <bdi>IP→MAC</bdi>',
+      'ca.tier.base': 'חישה בסיסית · זיהוי עמוק',
+      'ca.flow.cd': 'זיהוי <bdi>nDPI per-flow</bdi> · הקלטה / השמעה',
+      'ca.tier.leaf': 'שירותי בסיס עצמאיים · ספריות משותפות',
+      'ca.edge.cd': 'התאמת פלטפורמה',
+      'ca.id.cd': 'עוגן זהות',
+      'ca.onb.cd': 'חיבור ללא מגע',
+      'ca.dom.cd': 'תיאום מיקום',
+      'ca.cli.cd': 'ניפוי / תפעול',
+      'ca.pc.cd': 'חוזה פרופיל',
+      'ca.tr.cd': 'סנכרון <bdi>TR-181</bdi>',
+
+      'hard.ov.d1.h3': 'מורכבות תוכנה',
+      'hard.ov.d1.p': 'ארכיטקטורת שירות רב־שכבתית עם הפרדת אחריות, שבה כל <bdi>case</bdi> דורש <bdi>API</bdi> עובדתי ניטרלי.',
+      'hard.ov.d2.h3': 'התאמת פלטפורמה',
+      'hard.ov.d2.p': 'פערי תקן, תמיכת יצרן ו־<bdi>RF</bdi> אמיתי מושכים זה נגד זה במחסנית פתוחה — מה שאצל אחרים מובנה, אנו לועסים בלוק אחר בלוק.',
+      'hard.ov.d3.h3': 'אלגוריתם ופרטיות',
+      'hard.ov.d3.p': 'אין מאגר נתונים ציבורי; כל אחד מאיתנו מקליט תעבורת בית אמיתית בביתו ומשמיע כדי לכוון; פרטיות היא גבול שנקבע מיום הארכיטקטורה הראשון.',
+      'hard.d1.head.h3': 'מורכבות תוכנה · ארכיטקטורה רב־שכבתית + <bdi>API</bdi> ניטרלי',
+      'hard.d1.head.one': 'מחסנית שירות עם הפרדת אחריות, וחוזה עובדתי ניטרלי שיש להגות שוב ושוב',
+      'hard.d2.head.h3': 'התאמת פלטפורמה · "מובנה מול לעיסה בלוק אחר בלוק"',
+      'hard.d2.head.one': 'חיבור ללא מגע כדוגמה: פערי תקן, תמיכת יצרן ו־<bdi>RF</bdi> אמיתי מושכים זה נגד זה במחסנית פתוחה',
+      'hard.d3.head.h3': 'אלגוריתם ופרטיות · מכוון על תעבורת בית אמיתית',
+      'hard.d3.head.one': 'אין מאגר נתונים ציבורי; כל אחד מקליט תעבורה בביתו ומשמיע אותה; פרטיות היא גבול שנקבע מיום הארכיטקטורה הראשון',
+
+      'hero.stat.modules.det': '<b>~85K שורות</b> <bdi>Rust</bdi> עסקי<br />~310K שורות כולל ספריות',
+      'hero.stat.stacks.det': '<b>prplOS</b> · <b>TR-181</b> · <b>USP</b>',
+      'hero.stat.hil.det': '<b>1</b> <bdi>Gateway</bdi> · <b>3</b> <bdi>Raspberry Pi</bdi> · <b>1</b> <bdi>Mac</bdi>',
+      'hero.stat.milestone.det': 'לולאת תחרות רוחב פס<br /><b>על חומרה אמיתית</b>',
+      'hero.scale.repos': 'מאגרי תלות (<bdi>submodule</bdi>)',
+      'hero.scale.care': 'תת־מודולי ליבה של <bdi>Care Engine</bdi>',
+      'hero.scale.fabric': '<bdi>Fabric</bdi>: 2 מהנדסים · חודש, בתחילת השנה',
+
+      'track.tag': '04 · שני המסלולים',
+      'track.h2': 'מה שהנהר הזה זורם דרכו הם שני מסלולים אמיתיים',
+      'river.now.next': '↓ תחילה ראו <strong style="color:var(--ink)">במה כל אחד משני המסלולים מתמודד</strong>; את הקושי נפרק בחלק הבא.',
+
+      'river.now.priv.badge': 'פרטיות תחילה',
+      'river.now.priv.lab': '<bdi>vektor-profiling · data privacy by design</bdi>',
+      'river.now.priv.h3': 'כיוונון האלגוריתם ל"מספיק טוב" על תעבורת בית אמיתית',
+      'river.now.priv.p': '<bdi>Profiling</bdi> ותחרות רוחב פס הם <span class="hl">שני מסלולים מקבילים</span>, אך זה קשה במקום אחר: <span class="hl">אין מאגר נתונים ציבורי</span>. חברי הצוות שלנו <span class="hl">מקליטים כל אחד תעבורת בית אמיתית בביתו</span>, ואז משמיעים אותה שוב ושוב, <span class="hl">מכווננים את האלגוריתם המקומי סבב אחר סבב</span>, עד שאיכות הפרופיל חוצה את סף המינימום השמיש — סוג איטי של כיוונון, צמוד לקצב האמיתי.',
+      'river.now.priv.loop.rec.nm': 'הקלטה בבית',
+      'river.now.priv.loop.rec.sub': 'תעבורת בית אמיתית',
+      'river.now.priv.loop.replay.nm': '<bdi>Replay</bdi> מקומי',
+      'river.now.priv.loop.replay.sub': 'השמעה משוחזרת',
+      'river.now.priv.loop.tune.nm': 'התקרבות לשמישות',
+      'river.now.priv.loop.tune.sub': 'כיוונון חוזר עד התכנסות',
+      'river.now.priv.guard': 'מאחורי זה עומד <b>עקרון העיצוב השני של <bdi>Vektor</bdi> — פרטיות נתונים</b>: <span class="em">תעבורה גולמית ו־<bdi>PII</bdi> לעולם אינן עוזבות את הנתב</span>. אימון וכיוונון מתבצעים על המכשיר / מקומית; כלפי חוץ יוצאים רק <bdi>segments</bdi> אנונימיים. פרטיות אינה ציות בדיעבד אלא <b>גבול שנקבע מיום הארכיטקטורה הראשון</b> — ובדיוק לכן מסלול זה אינו יכול לקחת את הקיצור של "משיכת נתונים לענן לאימון מרוכז".',
+
+      'onb.lede': 'הנה דוגמה קונקרטית יותר שכל מהנדס תופס במבט — <strong style="color:var(--ink)">חיבור ללא מגע (Zero-Touch Onboarding)</strong>. אותו דבר הוא לרוב <strong style="color:var(--ink)">מובנה</strong> בפלטפורמה סגורה בשלה; על המחסנית הפתוחה <bdi>prplOS</bdi> סללנו אותו <strong style="color:var(--ink)">בלוק אחר בלוק</strong>. הוא אינו קשה באלגוריתם אלא ב<strong style="color:var(--ink)">משיכה התלת־כיוונית של סיליקון אמיתי, פערי תקן ותמיכת יצרן</strong>.',
+      'onb.cap': '<b>כיצד לקרוא:</b> מכשיר חדש מתחבר ועובר מיד לתפקיד הרשת הנכון, משחיל לאורך טופולוגיית ה־<bdi>line</bdi> עד ה־<bdi>extender</bdi> הקצה — <b>המקטע הירוק הוא הקישור שכבר נסלל</b>, אותה נקודה בקצה היא <b>ענבר: בעיה ידועה שעדיין יש לסגור</b>. איננו מסתירים אותה.',
+      'onb.topo.dev.nm': 'מכשיר חדש מתחבר',
+      'onb.topo.dev.sub': '<bdi>plug-in</bdi>',
+      'onb.topo.gate.nm': 'שער רשימת היתר',
+      'onb.topo.gate.sub': '<bdi>whitelist gate</bdi>',
+      'onb.topo.gw.sub': '<bdi>HT7210 GW</bdi>',
+      'onb.topo.ext.nm': '<bdi>Extender</bdi> בשרשרת',
+      'onb.topo.ext.sub': '<bdi>line topology</bdi>',
+      'onb.topo.tail.nm': 'קצה לפתרון',
+      'onb.topo.tail.sub': '<bdi>manual route</bdi>',
+      'onb.topo.l0': 'רשימת היתר <bdi>MAC</bdi>',
+      'onb.topo.l1': 'החלפת <bdi>Role</bdi>',
+      'onb.topo.l2': '<bdi>backhaul AP</bdi>',
+      'onb.topo.l3': 'קצה',
+      'onb.card.dpp.h4': '<bdi>DPP</bdi> לא מוכן ← רשימת היתר <bdi>MAC</bdi> כגיבוי',
+      'onb.card.dpp.st': '✓ נסלל',
+      'onb.card.dpp.c': 'סכמת החיבור <span class="k"><bdi>DPP</bdi></span> ברמת תעודת מכשיר אינה זמינה עדיין. אנו משתמשים ב<span class="k">רשימת היתר <bdi>MAC</bdi></span> כגיבוי ללא־מגע הטוב ביותר היום, ומריצים תחילה "התחבר ועבור".',
+      'onb.card.dpp.l': 'שמור מבנית עבור <bdi>DPP</bdi>: מעבר לרשימת היתר מבוססת תעודת מכשיר בעתיד הוא <b>החלפה חלקה</b>, לא בנייה מחדש.',
+      'onb.card.dm.h4': 'אין <bdi>data model</bdi> תקני ← <bdi>TR-181 relay</bdi> תוצרת בית',
+      'onb.card.dm.st': '↩ פשרה פרגמטית',
+      'onb.card.dm.c': 'לדחיפת רשימת ההיתר <bdi>MAC</bdi> ל־<bdi>extender</bdi> <span class="k">אין מסלול מוכן ב־data model התקני</span>; נדרשת שיטת <span class="k"><bdi>TR-181 relay</bdi></span> נוספת.',
+      'onb.card.dm.l': 'כבר הועלה בפגישת <bdi>prplMesh</bdi> כהצעת תקינה — פותר את ההווה תוך דחיפת הזרם העליון לסגור את הפער.',
+      'onb.card.airoha.h4': 'תמיכת <bdi>Airoha</bdi> חסרה ← <bdi>WiFi</bdi> לא יציב, פשרה פרגמטית',
+      'onb.card.airoha.st': '↩ פשרה פרגמטית',
+      'onb.card.airoha.c': 'תחילה כיוונו למצב האבטחה המתקדם של <span class="k"><bdi>onboarding AP + backhaul AP</bdi></span>; בהיעדר תמיכת <bdi>Airoha</bdi>, <span class="k"><bdi>WiFi</bdi> הפך לא יציב</span>, עיקוף.',
+      'onb.card.airoha.l': 'פשרנו ל־<b><bdi>backhaul AP + predefined SSID/key + MAC</bdi> רשימת היתר</b>: מקריבים מעט מהצורה האידיאלית תמורת שמישות יציבה על חומרה אמיתית.',
+      'onb.card.profile.h4': 'אין <bdi>extender profile</bdi> תקני ב־<bdi>prplOS</bdi> ← פיצחנו בעצמנו',
+      'onb.card.profile.st': '↩ סללנו בעצמנו',
+      'onb.card.profile.c': 'למחסנית <bdi>prplOS</bdi> <span class="k">אין סכמת <bdi>extender profile</bdi> תקנית מוכנה</span>; פיצוח צורת החיבור מאפס בלע בעצמו לא מעט זמן.',
+      'onb.card.profile.l': 'בנוסף <span class="k"><bdi>HT7210 GW + extender auto mode</bdi></span> הובא פריט אחר פריט — הכול מובנה ב־<bdi>OpenSync</bdi>.',
+      'onb.card.tail.h4': 'קצה טופולוגיית <bdi>line</bdi>: ניתוב הקפיצה האחרונה עדיין לאוטומציה',
+      'onb.card.tail.st': '⚠ לפתרון',
+      'onb.card.tail.c': 'תחת טופולוגיית <span class="k"><bdi>line</bdi> (שרשרת)</span>, <span class="k">ניתוב ה־<bdi>ping</bdi> של ה־<bdi>extender</bdi> האחרון דורש כעת העברה ידנית</span> — פריט ידוע שעדיין יש לסגור.',
+      'onb.card.tail.l': 'מצוין בכנות: זה אינו חוסם את הקישור הראשי, אך חיבור ללא־מגע אמיתי דורש אוטומציה של קפיצה זו.',
+      'onb.card.sum.h4': 'יכולת אחת, שתי עקומות עלות',
+      'onb.card.sum.st': '✓ יציב',
+      'onb.card.sum.c': 'שורת התצורה האחת ש"מובנית" בפלטפורמה סגורה היא, במחסנית פתוחה, <span class="k">סכמת תעודות + פערי תקן + תמיכת יצרן + <bdi>RF</bdi> אמיתי</span> ערומות לארבעה דברים.',
+      'onb.card.sum.l': 'אך לאחר שנסלל, כל בלוק הפך לנכס שאנו שולטים בו ויכולים לפתח — זהו הצד השני של הסיבה ל"אין למהר למזג כעת".',
     },
   };
 
