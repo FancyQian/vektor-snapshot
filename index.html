@@ -36,7 +36,14 @@
 
   body {
     font-family: var(--sans);
-    background: var(--bg);
+    /* 蓝图网格：major 96px（青）+ minor 24px（灰），极淡——工程图纸质感 */
+    background:
+      linear-gradient(rgba(79, 209, 197, 0.034) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79, 209, 197, 0.034) 1px, transparent 1px),
+      linear-gradient(rgba(159, 176, 195, 0.017) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(159, 176, 195, 0.017) 1px, transparent 1px),
+      var(--bg);
+    background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px;
     color: var(--ink);
     line-height: 1.7;
     -webkit-font-smoothing: antialiased;
@@ -48,10 +55,10 @@
   .hero {
     position: relative;
     padding: 96px 0 72px;
+    /* 末层不铺底色：让 body 蓝图网格透出 */
     background:
       radial-gradient(1200px 500px at 75% -10%, rgba(91, 156, 255, 0.16), transparent 60%),
-      radial-gradient(900px 420px at 10% 0%, rgba(79, 209, 197, 0.12), transparent 55%),
-      var(--bg);
+      radial-gradient(900px 420px at 10% 0%, rgba(79, 209, 197, 0.12), transparent 55%);
     border-bottom: 1px solid var(--line);
     overflow: hidden;
   }
@@ -146,8 +153,32 @@
   .scale-strip .item .k { color: var(--ink-faint); font-size: 12.5px; }
   .scale-strip .sep { width: 1px; align-self: stretch; background: var(--line); }
 
+  /* ---------- 顶部阅读进度条（会议时"讲到哪"一目了然） ---------- */
+  .read-bar {
+    position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 60;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2) 60%, var(--focus));
+    transform: scaleX(0); transform-origin: left;
+    pointer-events: none;
+  }
+  [dir="rtl"] .read-bar {
+    transform-origin: right;
+    background: linear-gradient(270deg, var(--accent), var(--accent-2) 60%, var(--focus));
+  }
+
+  /* ---------- Hero 章节地图（00–07 议程锚点链） ---------- */
+  .toc-map {
+    margin-top: 28px;
+    display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px;
+    font-family: var(--mono); font-size: 12px; color: var(--ink-faint);
+  }
+  .toc-map a { color: var(--ink-dim); text-decoration: none; transition: color .2s ease; }
+  .toc-map a:hover, .toc-map a:focus-visible {
+    color: var(--accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .toc-map .sep { opacity: 0.55; }
+
   /* ---------- 通用 section ---------- */
-  section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+  section { padding: 64px 0; border-bottom: 1px solid var(--line); scroll-margin-top: 14px; }
   .tag {
     font-family: var(--mono);
     font-size: 12px;
@@ -428,12 +459,9 @@
     margin-top: 24px; z-index: 3; flex: none;
     transition: transform .4s cubic-bezier(0.16,1,0.3,1), box-shadow .4s ease, opacity .4s ease;
   }
-  /* 三态圆点 */
+  /* 圆点：过去节点点亮后实心化（未来已迁出河流，见 07 流向何方） */
   .is-past   .rn-dot { border-color: var(--accent); }
-  .is-future .rn-dot { border-color: var(--accent-2); border-style: dashed; opacity: 0.5; background: var(--bg); }
-  /* 点亮：过去节点实心化 */
   .is-past.lit .rn-dot { background: var(--accent); box-shadow: 0 0 10px rgba(79,209,197,0.55); }
-  .is-future.lit .rn-dot { opacity: 0.75; }
   .river-node:hover .rn-dot { transform: scale(1.25); }
 
   .rn-body {
@@ -449,20 +477,11 @@
     font-family: var(--mono); font-size: 12px; letter-spacing: 0.05em;
     color: var(--ink-faint);
   }
-  .is-future .rn-phase { color: var(--accent-2); }
   .rn-body h3 { font-size: 16px; font-weight: 650; }
-  .is-future .rn-body h3 { color: var(--ink-dim); }
-  .rn-oid { font-family: var(--mono); font-size: 11px; color: var(--ink-faint); margin-top: 3px; }
   .rn-body > p { font-size: 14px; color: var(--ink-dim); margin-top: 5px; }
   .rn-body .chips { margin-top: 9px; }
-  /* 过去节点紧凑、未来节点淡化 */
-  .is-future .rn-body { filter: saturate(0.9); }
-  .is-future .rn-body > p { font-size: 13.5px; }
-  .rn-mini { margin-top: 8px; padding-inline-start: 16px; }
-  .rn-mini li { font-size: 12.5px; color: var(--ink-dim); margin-bottom: 3px; }
-  .rn-mini li::marker { color: var(--accent-2); }
 
-  /* 段标：过去 / 现在 / 未来 三个相位的分隔标签 */
+  /* 段标：河流相位的分隔标签 */
   .phase-band {
     grid-column: 1 / -1;
     display: flex; align-items: center; gap: 12px;
@@ -474,7 +493,6 @@
     padding: 3px 12px; border-radius: 999px; white-space: nowrap;
   }
   .phase-band.past .pb-label   { color: var(--accent);   background: rgba(79,209,197,0.1);  border: 1px solid rgba(79,209,197,0.3); }
-  .phase-band.future .pb-label { color: var(--accent-2); background: rgba(91,156,255,0.08); border: 1px solid rgba(91,156,255,0.28); }
   .phase-band .pb-line { flex: 1; height: 1px; background: var(--line); }
 
   /* ---------- chip / badge（共享） ---------- */
@@ -865,7 +883,10 @@
   .onb-card .l::before { content: "↳ "; color: var(--accent); font-family: var(--mono); }
   .onb-card.mid .l::before, .onb-card.open .l::before { color: var(--focus); }
 
-  /* ---------- 能力链 + 服务卡（05 服务能力） ---------- */
+  /* ================================================================
+     06 技术深潜 —— 五支柱逐节拆开；每节自洽，随工程持续加深
+     支柱地图复用 .chain；旗舰（Profiling）用琥珀 .flag 标识
+     ================================================================ */
   .chain {
     margin-top: 28px;
     display: flex; align-items: center; justify-content: center;
@@ -878,45 +899,93 @@
   .chain .sep { color: var(--ink-faint); }
   .chain .thru { color: var(--focus); }
 
-  .svc-grid {
-    margin-top: 22px;
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  .dive { margin-top: 60px; }
+  .dive-head {
+    display: flex; align-items: baseline; gap: 16px;
+    padding-bottom: 14px; border-bottom: 1px solid var(--line);
   }
-  .svc {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 22px;
-    display: flex; flex-direction: column;
+  .dive-head .pn {
+    font-family: var(--mono); font-size: 27px; font-weight: 720;
+    color: var(--accent); letter-spacing: -0.02em; line-height: 1; flex: none;
+  }
+  .dive-head.flag .pn { color: var(--focus); }
+  .dive-head .ht { display: flex; flex-direction: column; gap: 4px; }
+  .dive-head h3 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+  .dive-head .one { font-size: 13.5px; color: var(--ink-faint); }
+  .dive-head .crate { font-family: var(--mono); font-size: 11.5px; color: var(--accent-2); }
+  .dive-head .flagship {
+    align-self: center; flex: none; margin-inline-start: auto;
+    font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em;
+    color: var(--focus); background: var(--focus-soft);
+    border: 1px solid rgba(246,183,60,0.32);
+    padding: 2px 10px; border-radius: 999px; white-space: nowrap;
+  }
+  .dive > .section-lede { margin-top: 18px; }
+  .dive p .hl { color: var(--ink); font-weight: 600; }
+
+  .dive-grid { margin-top: 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .dive-card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; padding: 18px 20px;
     transition: transform .25s ease, border-color .25s ease;
   }
-  .svc:hover { transform: translateY(-3px); border-color: rgba(79,209,197,0.35); }
-  .svc.span { grid-column: 1 / -1; border-inline-start: 3px solid var(--focus); }
-  .svc .svc-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-  .svc .role {
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em;
-    padding: 2px 9px; border-radius: 999px;
-    background: rgba(79, 209, 197, 0.12); color: var(--accent);
-    border: 1px solid rgba(79, 209, 197, 0.25); flex: none;
+  .dive-card:hover { transform: translateY(-3px); border-color: rgba(79,209,197,0.35); }
+  .dive.is-flag .dive-card:hover { border-color: rgba(246,183,60,0.4); }
+  .dive-card h4 { font-size: 14.5px; font-weight: 650; margin-bottom: 6px; }
+  .dive-card p { font-size: 13.5px; color: var(--ink-dim); }
+  .dive-card.span { grid-column: 1 / -1; }
+  .dive-card .chips { margin-top: 11px; }
+
+  /* 「正在打的深度」插槽：每节后续 session 持续填深的方向路标 */
+  .dive-next {
+    margin-top: 14px; padding: 14px 18px;
+    background: var(--bg-soft); border: 1px dashed var(--line);
+    border-radius: 12px;
   }
-  .svc.anchor .role {
-    background: var(--focus-soft); color: var(--focus);
-    border-color: rgba(246, 183, 60, 0.32);
+  .dive-next .dn-t {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent-2); margin-bottom: 8px;
   }
-  .svc h3 { font-size: 17px; font-weight: 650; }
-  .svc .oid {
-    font-family: var(--mono); font-size: 12px; color: var(--accent-2);
-    margin: 2px 0 9px;
+  .dive-next ul { padding-inline-start: 18px; }
+  .dive-next li { font-size: 13px; color: var(--ink-dim); margin-bottom: 4px; }
+  .dive-next li:last-child { margin-bottom: 0; }
+  .dive-next li::marker { color: var(--accent-2); }
+
+  /* 支柱地图可点击跳节（会议 walkthrough 友好） */
+  .chain a { text-decoration: none; }
+  .chain a:hover, .chain a:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+  .dive { scroll-margin-top: 24px; }
+
+  /* ================================================================
+     07 流向何方 —— 已立项未来（卡片化路线图）
+     Optimizer 用虚线占位卡：代码 / 设计文档待合并，合并后展开
+     ================================================================ */
+  .fut-grid { margin-top: 28px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .fut {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 14px; padding: 20px 22px;
+    transition: transform .25s ease, border-color .25s ease;
   }
-  .svc p { font-size: 14px; color: var(--ink-dim); }
-  .svc p .hl { color: var(--ink); font-weight: 600; }
-  .svc .chips { margin-top: 13px; }
+  .fut:hover { transform: translateY(-3px); border-color: rgba(91,156,255,0.4); }
+  .fut .f-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .fut h3 { font-size: 16px; font-weight: 650; }
+  .fut .oid { font-family: var(--mono); font-size: 11.5px; color: var(--accent-2); margin-top: 3px; }
+  .fut > p { font-size: 13.5px; color: var(--ink-dim); margin-top: 8px; }
+  .fut > p strong { color: var(--ink); font-weight: 600; }
+  .fut ul { margin-top: 9px; padding-inline-start: 17px; }
+  .fut li { font-size: 12.5px; color: var(--ink-dim); margin-bottom: 3px; }
+  .fut li:last-child { margin-bottom: 0; }
+  .fut li::marker { color: var(--accent-2); }
+  .fut.stub { border-style: dashed; border-color: rgba(91,156,255,0.35); background: var(--bg-soft); }
+  .fut-note { margin-top: 18px; font-size: 13.5px; color: var(--ink-faint); max-width: 720px; }
+  .fut-note b { color: var(--ink-dim); font-weight: 600; }
 
   /* ---------- 协作节奏（05 克制外交） ---------- */
   .collab {
+    /* 半透明底：保留浅一档的区分度，同时让蓝图网格隐约透出 */
     background:
       radial-gradient(900px 400px at 20% 0%, rgba(91, 156, 255, 0.1), transparent 55%),
-      var(--bg-soft);
+      rgba(15, 22, 35, 0.72);
   }
   .collab-card {
     margin-top: 26px;
@@ -1003,7 +1072,6 @@
   /* 标识符 / 代码 / 数字强制 LTR，避免字符跳边 */
   [dir="rtl"] code,
   [dir="rtl"] .oid,
-  [dir="rtl"] .rn-oid,
   [dir="rtl"] .lab .t,
   [dir="rtl"] .stat .num,
   [dir="rtl"] .prow .mk { direction: ltr; unicode-bidi: isolate; }
@@ -1031,7 +1099,12 @@
     .ask { grid-template-columns: 1fr; }
     .pillars { grid-template-columns: 1fr; }
     .replay-loop { grid-template-columns: 1fr; }
-    .svc-grid { grid-template-columns: 1fr; }
+    .dive-grid { grid-template-columns: 1fr; }
+    .dive { margin-top: 44px; }
+    .dive-head { gap: 11px; flex-wrap: wrap; }
+    .dive-head .pn { font-size: 22px; }
+    .dive-head .flagship { margin-inline-start: 0; }
+    .fut-grid { grid-template-columns: 1fr; }
     .onb-grid { grid-template-columns: 1fr; }
     .dim-overview { grid-template-columns: 1fr; }
     .dim-head { margin-top: 36px; gap: 10px; }
@@ -1049,6 +1122,9 @@
 </style>
 </head>
 <body>
+
+<!-- 阅读进度条：随滚动填充，scaleX 由 JS 驱动 -->
+<div class="read-bar" id="readBar" aria-hidden="true"></div>
 
 <!-- 语言切换器：中 / EN / עברית（默认显示中文 DOM；JS 注入 en/he） -->
 <nav class="lang-switch" aria-label="Language / 语言 / שפה">
@@ -1101,12 +1177,23 @@
       <div class="item"><span class="v">Fabric</span><span class="k" data-i18n="hero.scale.fabric">年初 2 名工程师 · 1 个月奠基</span></div>
     </div>
 
+    <!-- 章节地图：全文议程，会议开场先给叙事弧 -->
+    <nav class="toc-map reveal" aria-label="目录" data-i18n="hero.toc">
+      <a href="#sec-01">01 定位</a><span class="sep">·</span>
+      <a href="#sec-02">02 系统全景</a><span class="sep">·</span>
+      <a href="#sec-03">03 时间河</a><span class="sep">·</span>
+      <a href="#sec-04">04 两条主线</a><span class="sep">·</span>
+      <a href="#sec-05">05 为什么难</a><span class="sep">·</span>
+      <a href="#sec-06">06 技术深潜</a><span class="sep">·</span>
+      <a href="#sec-07">07 流向何方</a>
+    </nav>
+
     <div class="headwaters reveal" aria-hidden="true"></div>
   </div>
 </header>
 
 <!-- ================= 01 · 定位 ================= -->
-<section>
+<section id="sec-01">
   <div class="wrap">
     <div class="tag reveal" data-i18n="pos.tag">01 · 定位</div>
     <h2 class="reveal" data-i18n="pos.h2">我们在造的，是设备侧的"自主网络医生"</h2>
@@ -1140,7 +1227,7 @@
 </section>
 
 <!-- ================= 02 · 系统全景（架构图） ================= -->
-<section>
+<section id="sec-02">
   <div class="wrap">
     <div class="tag reveal" data-i18n="arch.tag">02 · 系统全景</div>
     <h2 class="reveal" data-i18n="arch.h2">两张图看清：设备给事实、云端做决策，背后是 10 个独立服务</h2>
@@ -1294,15 +1381,15 @@
   </div>
 </section>
 
-<!-- ================= 03 · 时间河（过去→现在→未来） ================= -->
-<section class="river-section">
+<!-- ================= 03 · 时间河（源头→此刻） ================= -->
+<section class="river-section" id="sec-03">
   <div class="wrap">
     <div class="tag reveal" data-i18n="river.tag">03 · 时间河</div>
-    <h2 class="reveal" data-i18n="river.h2">从源头到此刻，再到远方</h2>
+    <h2 class="reveal" data-i18n="river.h2">从源头，流到此刻</h2>
     <p class="section-lede reveal" data-i18n="river.lede">
       这不是一个先做 demo 再补工程的项目。我们<strong style="color:var(--ink)">先把嵌入式平台的工程地基打实</strong>，
       再往上叠身份、北向、接入、感知，汇聚到今天的硬件在环——每一层都是下一层的前提。
-      向下滚动，就是顺着这条河往前走。
+      向下滚动，就是顺着这条河往前走；河的尽头，就是现在。未来的流向，放在文末路线图。
     </p>
 
     <div class="river" id="river">
@@ -1359,62 +1446,12 @@
         </div>
       </div>
 
-      <!-- ===== 相位：未来 ===== -->
-      <div class="phase-band future"><span class="pb-label" data-i18n="river.band.future">未来 · 已立项 / 计划中</span><span class="pb-line"></span></div>
-
-      <div class="river-node is-future">
-        <div class="rn-rail"><span class="rn-dot"></span></div>
-        <div class="rn-body rn-watch">
-          <div class="rn-head"><span class="rn-phase" data-i18n="river.future.steer.phase">下一步</span><h3>Client Steering</h3><span class="planned" data-i18n="river.future.steer.planned">计划中</span></div>
-          <div class="rn-oid">Device.X_VEKLUS_Steering.*</div>
-          <p data-i18n="river.future.steer.p">vektor-core 的独立大服务，负责<strong style="color:var(--ink)">所有 client 的最佳连接点决策</strong>，与 Care Engine 委托路径解耦。</p>
-          <ul class="rn-mini">
-            <li data-i18n="river.future.steer.li0">band / AP / association 三维选点</li>
-            <li data-i18n="river.future.steer.li1">pre-association band steering</li>
-            <li data-i18n="river.future.steer.li2">post-association client steering</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="river-node is-future">
-        <div class="rn-rail"><span class="rn-dot"></span></div>
-        <div class="rn-body rn-watch">
-          <div class="rn-head"><span class="rn-phase" data-i18n="river.future.qoe.phase">下一步</span><h3 data-i18n="river.future.qoe.h3">QoE 体验度量</h3><span class="planned" data-i18n="river.future.qoe.planned">计划中</span></div>
-          <div class="rn-oid" data-i18n="river.future.qoe.oid">三类 QoE + 意图驱动阈值</div>
-          <p data-i18n="river.future.qoe.p">不追求纯理论指标，而是<strong style="color:var(--ink)">识别趋势、检测对正常行为的偏离</strong>，在用户被影响前触发动作。</p>
-          <ul class="rn-mini">
-            <li data-i18n="river.future.qoe.li0">application QoE（应用级）</li>
-            <li data-i18n="river.future.qoe.li1">device-health QoE（设备健康）</li>
-            <li data-i18n="river.future.qoe.li2">location QoE（家庭整体）</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="river-node is-future">
-        <div class="rn-rail"><span class="rn-dot"></span></div>
-        <div class="rn-body rn-watch">
-          <div class="rn-head"><span class="rn-phase" data-i18n="river.future.load.phase">远期</span><h3 data-i18n="river.future.load.h3">负载 / 拓扑感知 Steering</h3><span class="planned" data-i18n="river.future.load.planned">原型 → GA</span></div>
-          <div class="rn-oid">Throughput-optimized · AI / ML</div>
-          <p data-i18n="river.future.load.p">Steering 的演进终点——从规则到模型，让选点<strong style="color:var(--ink)">感知吞吐、负载与拓扑</strong>。</p>
-          <ul class="rn-mini">
-            <li data-i18n="river.future.load.li0">ToS-aware client steering</li>
-            <li data-i18n="river.future.load.li1">吞吐优化选点（AI/ML，原型）</li>
-            <li data-i18n="river.future.load.li2">结合 FlowIQ 负载趋势 + 拓扑做仲裁</li>
-          </ul>
-        </div>
-      </div>
     </div>
-
-    <p class="section-lede reveal" style="margin-top:30px" data-i18n="river.note">
-      注：Optimizer（信道 / 拓扑优化策略）也在并行推进中，待合并后会汇入这条河。
-      <strong style="color:var(--ink)">这些能力彼此咬合</strong>——steering 选点要看 QoE 与 FlowIQ 负载，
-      负载感知仲裁又依赖拓扑事实，正是它们之间的耦合，要求底座先稳。
-    </p>
   </div>
 </section>
 
 <!-- ================= 04 · 现在 · 两条主线在攻什么 ================= -->
-<section>
+<section id="sec-04">
   <div class="wrap">
     <div class="tag reveal" data-i18n="track.tag">04 · 两条主线</div>
     <h2 class="reveal" data-i18n="track.h2">这条河正流经的，是两条真实主线</h2>
@@ -1427,8 +1464,8 @@
       </div>
       <div class="basin-title" data-i18n="river.now.title">此刻，全部精力都压在这两条上</div>
       <p class="basin-intro" data-i18n="river.now.intro">
-        上一节那条河——已建成的过去、已立项的未来——是我们工作的<strong style="color:var(--ink)">全景地图</strong>。
-        而<strong style="color:var(--ink)">此刻</strong>，团队的全部精力正压在地图中央的<strong style="color:var(--ink)">两条真实设备端到端主线</strong>上：
+        上一节那条河，讲完了<strong style="color:var(--ink)">已建成的过去</strong>；河流灌满处，就是此刻。
+        而<strong style="color:var(--ink)">此刻</strong>，团队的全部精力正压在<strong style="color:var(--ink)">两条真实设备端到端主线</strong>上：
         Network X 2026 里由我们承载、标着 <strong style="color:var(--ink)">P0 / 真实落地</strong> 的那两条——
         一条解决<strong style="color:var(--ink)">"网络此刻被谁占满"</strong>，一条解决<strong style="color:var(--ink)">"这个家的节律长什么样"</strong>。
       </p>
@@ -1468,7 +1505,7 @@
 </section>
 
 <!-- ================= 05 · 为什么难 · 三个维度 ================= -->
-<section>
+<section id="sec-05">
   <div class="wrap">
     <div class="tag reveal" data-i18n="cx.tag">05 · 为什么难</div>
     <h2 class="reveal" data-i18n="cx.h2">把这两条主线拆开，难度集中在三个维度</h2>
@@ -1761,93 +1798,329 @@
   </div>
 </section>
 
-<!-- ================= 06 · 服务能力 ================= -->
-<section>
+<!-- ================= 06 · 技术深潜（五支柱，逐 session 加深） ================= -->
+<section id="sec-06">
   <div class="wrap">
-    <div class="tag reveal" data-i18n="svc.tag">06 · 服务能力</div>
-    <h2 class="reveal" data-i18n="svc.h2">撑起这两条主线的，是一整排硬料服务</h2>
-    <p class="section-lede reveal" data-i18n="svc.lede">
-      两条主线不是凭空成立的。它们底下是一条 <strong style="color:var(--ink)">看见 → 度量 → 理解</strong> 的能力链：
-      Flow 看清每条流，FlowIQ 把流量变成数学，Profiling 翻译成家庭画像；
-      Identity 贯穿全程提供身份锚点，再由 <strong style="color:var(--ink)">Forge</strong> 把一切托到真实硬件之上。
+    <div class="tag reveal" data-i18n="dive.tag">06 · 技术深潜</div>
+    <h2 class="reveal" data-i18n="dive.h2">撑起这一切的五个支柱，逐个拆开看</h2>
+    <p class="section-lede reveal" data-i18n="dive.lede">
+      前面回答的是"此刻在攻什么、为什么难"；这一章把镜头拉近，对撑起整个系统的<strong style="color:var(--ink)">五个技术支柱</strong>逐个拆开：
+      各自解决什么问题、核心机制是什么、正往哪个深度打。
+      顺着数据链路由底向上走——<strong style="color:var(--ink)">看见 → 认出 → 理解 → 处置</strong>，
+      最后是把一切托上真实硅片的 Forge。这一章会随工程一起持续加深。
     </p>
 
-    <div class="chain reveal" data-i18n="svc.chain">
-      <span class="step">Flow · 看见</span><span class="sep">→</span>
-      <span class="step">FlowIQ · 度量</span><span class="sep">→</span>
-      <span class="step">Profiling · 理解</span>
+    <div class="chain reveal" data-i18n="dive.map">
+      <a class="step" href="#dive-p1">P1 Flow / FlowIQ · 看见与度量</a><span class="sep">→</span>
+      <a class="step" href="#dive-p2">P2 Identity · 认出</a><span class="sep">→</span>
+      <a class="thru" href="#dive-p3">P3 Profiling · 理解</a><span class="sep">→</span>
+      <a class="step" href="#dive-p4">P4 Self-healing · 处置</a>
       <span class="sep">｜</span>
-      <span class="thru">Identity 贯穿全链</span>
-      <span class="sep">｜</span>
-      <span class="thru">Forge 托底硬件</span>
+      <a class="step" href="#dive-p5">P5 Forge · 托底硬件</a>
     </div>
 
-    <div class="svc-grid">
-      <!-- Flow -->
-      <div class="svc reveal">
-        <div class="svc-top"><span class="role" data-i18n="svc.flow.role">采集 · 看见</span></div>
-        <h3>Flow Service</h3>
-        <div class="oid">vektor-flow</div>
-        <p data-i18n="svc.flow.p">看清网络里的<span class="hl">每一条流</span>。基于 nDPI 的 per-flow 深度识别，输出的 <code>app.category</code> 已是精细语义类别（不再是 "Web" 这种粗分类）；并支持 Flow Event 的录制与回放，让真实流量可被反复复现、做回归。</p>
-        <div class="chips">
-          <span class="chip" data-i18n="svc.flow.chip0">nDPI 语义分类</span>
-          <span class="chip" data-i18n="svc.flow.chip1">Recording / Playback</span>
-          <span class="chip" data-i18n="svc.flow.chip2">fastpath 设计</span>
+    <!-- ===== P1 · Flow / FlowIQ ===== -->
+    <div class="dive reveal" id="dive-p1">
+      <div class="dive-head">
+        <span class="pn" aria-hidden="true">P1</span>
+        <div class="ht">
+          <h3 data-i18n="dive.p1.h3">Flow / FlowIQ — 看见每条流，再把它变成数学</h3>
+          <span class="one" data-i18n="dive.p1.one">感知层双子服务：nDPI 语义识别 + 嵌入式预算内的滑动窗口度量</span>
+          <span class="crate">vektor-flow · vektor-flowiq</span>
         </div>
       </div>
-
-      <!-- FlowIQ -->
-      <div class="svc reveal">
-        <div class="svc-top"><span class="role" data-i18n="svc.iq.role">计算 · 度量</span></div>
-        <h3>FlowIQ</h3>
-        <div class="oid">vektor-flowiq</div>
-        <p data-i18n="svc.iq.p">把流量变成<span class="hl">可计算的数学</span>。独立服务，承接流量的数学、时序与节律：per-flow <code>bytes_rate</code> 滑动窗口、device activity primitive、周期学习，并在内部完成 IP→MAC 关联。已从进程内 provider 升格为独立服务。</p>
-        <div class="chips">
-          <span class="chip" data-i18n="svc.iq.chip0">滑动窗口 bytes_rate</span>
-          <span class="chip" data-i18n="svc.iq.chip1">节律 / 周期学习</span>
-          <span class="chip">IP→MAC stitching</span>
+      <p class="section-lede" data-i18n="dive.p1.lede">
+        上层一切能力的输入都从这里来。<span class="hl">Flow</span> 基于 nDPI 做 per-flow 深度识别，
+        输出的 <code>app.category</code> 已是精细语义类别而非 "Web" 级粗分；
+        <span class="hl">FlowIQ</span> 把流量变成可计算的数学——per-flow <code>bytes_rate</code> 滑动窗口、
+        设备活动原语、周期学习，并在内部完成 IP→MAC 关联。
+      </p>
+      <div class="dive-grid">
+        <div class="dive-card">
+          <h4 data-i18n="dive.p1.c0.h4">语义级流识别</h4>
+          <p data-i18n="dive.p1.c0.p">nDPI per-flow 深度识别，类别细到应用语义。它为上层画像与归因提供"词汇表"——看不清流，后面全是猜。</p>
+        </div>
+        <div class="dive-card">
+          <h4 data-i18n="dive.p1.c1.h4">录制 / 回放</h4>
+          <p data-i18n="dive.p1.c1.p">Flow Event 可录制、可复现回放。它是算法回归体系的根，也是"各自在家录包打磨"工作流的载体。</p>
+        </div>
+        <div class="dive-card">
+          <h4 data-i18n="dive.p1.c2.h4">嵌入式预算内的滑动窗口</h4>
+          <p data-i18n="dive.p1.c2.p">per-flow <code>bytes_rate</code> 滑动窗口在 CPE 级内存预算内常驻；设备活动原语供 Care Engine 与 Profiling 直接消费。</p>
+        </div>
+        <div class="dive-card">
+          <h4 data-i18n="dive.p1.c3.h4">从 provider 到独立服务</h4>
+          <p data-i18n="dive.p1.c3.p">FlowIQ 从进程内 provider 升格为独立服务——度量职责与消费方解耦，是一次主动的边界清晰化重构。</p>
         </div>
       </div>
-
-      <!-- Profiling -->
-      <div class="svc reveal">
-        <div class="svc-top"><span class="role" data-i18n="svc.pf.role">语义 · 理解</span></div>
-        <h3>Profiling</h3>
-        <div class="oid">vektor-profiling</div>
-        <p data-i18n="svc.pf.p">把数字翻译成<span class="hl">人能懂的画像</span>。单一职责：把 flow / activity primitive 翻译成人类语义——学习设备的周期性 session，形成 Persona 与行为画像；学到新节律才发事件，不做无谓广播。</p>
-        <div class="chips">
-          <span class="chip" data-i18n="svc.pf.chip0">Persona / 行为画像</span>
-          <span class="chip" data-i18n="svc.pf.chip1">session 周期学习</span>
-          <span class="chip" data-i18n="svc.pf.chip2">语义翻译</span>
-        </div>
-      </div>
-
-      <!-- Identity（贯穿锚点） -->
-      <div class="svc anchor reveal">
-        <div class="svc-top"><span class="role" data-i18n="svc.id.role">身份 · 全链锚点</span></div>
-        <h3>Identity</h3>
-        <div class="oid">vektor-identity</div>
-        <p data-i18n="svc.id.p">让每个设备有一个<span class="hl">永远认得出的身份</span>。跨 reboot / 实例重排稳定的 <code>StableId</code>（UUID v4）、MAC Stitching（多 MAC 归并）、Device Typing——是 FlowIQ / Profiling / Care Engine 所有 per-client 聚合的<span class="hl">权威锚点</span>。</p>
-        <div class="chips">
-          <span class="chip">StableId · UUID v4</span>
-          <span class="chip">MAC Stitching</span>
-          <span class="chip">Device Typing</span>
-        </div>
-      </div>
-
-      <!-- Forge（工程底座 · 横幅） -->
-      <div class="svc span anchor reveal">
-        <div class="svc-top"><span class="role" data-i18n="svc.forge.role">工程底座 · 让一切落到真实硬件</span></div>
-        <h3>Forge</h3>
-        <div class="oid">shared embedded firmware engineering workspace</div>
-        <p data-i18n="svc.forge.p">把上面这一整套软件能力<span class="hl">真正跑到真实硅片上</span>的共享工程工作区：OpenWrt / prplOS 构建、硬件验证、sysupgrade 安全、调试网络与 runbook。每一个服务，最终都要靠 Forge 才能在真实网关上 build、烧录、验证——<span class="hl">带宽争用的硬件在环 E2E，正是跑在它之上</span>。</p>
-        <div class="chips">
-          <span class="chip" data-i18n="svc.forge.chip0">OpenWrt / prplOS 构建</span>
-          <span class="chip" data-i18n="svc.forge.chip1">硬件验证 / sysupgrade</span>
-          <span class="chip" data-i18n="svc.forge.chip2">debug 网络 / runbook</span>
-        </div>
+      <div class="dive-next">
+        <div class="dn-t" data-i18n="dive.p1.next.t">正在打的深度</div>
+        <ul>
+          <li data-i18n="dive.p1.next.li0">fastpath 与采集开销的边界——"看得全"与"跑得快"如何兼得</li>
+          <li data-i18n="dive.p1.next.li1">滑动窗口的内存 / 精度权衡曲线</li>
+          <li data-i18n="dive.p1.next.li2">回放回归如何覆盖真实家庭流量的长尾</li>
+        </ul>
       </div>
     </div>
+
+    <!-- ===== P2 · Device Identification ===== -->
+    <div class="dive reveal" id="dive-p2">
+      <div class="dive-head">
+        <span class="pn" aria-hidden="true">P2</span>
+        <div class="ht">
+          <h3 data-i18n="dive.p2.h3">Device Identification — 在 MAC 随机化时代，认出每一台设备</h3>
+          <span class="one" data-i18n="dive.p2.one">所有 per-client 归因的权威锚点；错一次归并，上层全错</span>
+          <span class="crate">vektor-identity</span>
+        </div>
+      </div>
+      <p class="section-lede" data-i18n="dive.p2.lede">
+        FlowIQ 算得再准，"这是谁"认错了，一切归因都白费。Identity 给每台设备一个跨 reboot、
+        跨实例重排稳定的 <code>StableId</code>（UUID v4），并通过 <span class="hl">MAC Stitching</span>
+        把同一物理设备的多个 MAC 缝合回同一身份——这是整条能力链上最不能错的一环。
+      </p>
+      <div class="dive-grid">
+        <div class="dive-card">
+          <h4 data-i18n="dive.p2.c0.h4">StableId 生命周期</h4>
+          <p data-i18n="dive.p2.c0.p">UUID v4 锚点跨 reboot / 实例重排稳定；身份生命周期一致性是设计约束，不是事后修补。</p>
+        </div>
+        <div class="dive-card">
+          <h4 data-i18n="dive.p2.c1.h4">MAC Stitching（重点）</h4>
+          <p data-i18n="dive.p2.c1.p">现代终端的 MAC 随机化、多接口、跨媒介漫游，会把一台设备打散成多个"幽灵"；stitching 把它们重新缝合为同一身份。</p>
+        </div>
+        <div class="dive-card">
+          <h4 data-i18n="dive.p2.c2.h4">Device Typing</h4>
+          <p data-i18n="dive.p2.c2.p">在身份之上叠设备类型识别，为画像与策略提供设备语义——"这是一台电视"和"这是一部手机"，策略完全不同。</p>
+        </div>
+        <div class="dive-card">
+          <h4 data-i18n="dive.p2.c3.h4">身份即锚点</h4>
+          <p data-i18n="dive.p2.c3.p">FlowIQ 的 IP→MAC、Profiling 的 per-device 画像、Care Engine 的 per-client 归因，全部以 Identity 为权威——它的正确性被整条链放大。</p>
+        </div>
+      </div>
+      <div class="dive-next">
+        <div class="dn-t" data-i18n="dive.p2.next.t">正在打的深度</div>
+        <ul>
+          <li data-i18n="dive.p2.next.li0">stitching 的证据源与置信度融合——哪些信号能证明"是同一台"</li>
+          <li data-i18n="dive.p2.next.li1">随机化 MAC 下的归并策略，与误并 / 漏并的代价不对称</li>
+          <li data-i18n="dive.p2.next.li2">身份生命周期与上层状态的一致性契约</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== P3 · Profiling（旗舰） ===== -->
+    <div class="dive is-flag reveal" id="dive-p3">
+      <div class="dive-head flag">
+        <span class="pn" aria-hidden="true">P3</span>
+        <div class="ht">
+          <h3 data-i18n="dive.p3.h3">Profiling — 把家庭节律从时域搬进频域</h3>
+          <span class="one" data-i18n="dive.p3.one">本地优先的家庭节律引擎；PII 永不离开路由器</span>
+          <span class="crate">vektor-profiling</span>
+        </div>
+        <span class="flagship" data-i18n="dive.p3.flag">旗舰支柱</span>
+      </div>
+      <p class="section-lede" data-i18n="dive.p3.lede">
+        这是我们投入最重的支柱。作息本质上是<span class="hl">周期信号</span>——把"几点到几点谁在干什么"的时域观测，
+        推进到频域的节律分解，让画像从"统计"走向"信号处理"。
+        全部学习在设备本地完成，对外只输出匿名化 segment。
+      </p>
+      <div class="dive-grid">
+        <div class="dive-card">
+          <h4 data-i18n="dive.p3.c0.h4">L0→L4 分层管线</h4>
+          <p data-i18n="dive.p3.c0.p">Session Facts → Buckets → Slot Profiles → Pattern → Head；3h bucketing 与 EMA slot profiles 把无界观测收敛进有界状态。</p>
+        </div>
+        <div class="dive-card">
+          <h4 data-i18n="dive.p3.c1.h4">时域 → 频域</h4>
+          <p data-i18n="dive.p3.c1.p">周期性是家庭节律的本质。频域视角让"每天 19 点的高峰"成为可分解、可预测的信号分量，而不是一条手调的规则阈值。</p>
+        </div>
+        <div class="dive-card">
+          <h4 data-i18n="dive.p3.c2.h4">在 512MB 上跑起来</h4>
+          <p data-i18n="dive.p3.c2.p">有界内存、增量更新、无 GPU 假设——让算法在 CPE 级资源上常驻，是一系列边缘工程增强换来的。</p>
+        </div>
+        <div class="dive-card">
+          <h4 data-i18n="dive.p3.c3.h4">确定性规则 ⇄ 边缘 AI，可切换</h4>
+          <p data-i18n="dive.p3.c3.p">同一特征面，两种推理后端：确定性算法保底——可解释、可调试；边缘 AI 在其上可插拔。弹性是架构属性，不是路线赌注。</p>
+        </div>
+        <div class="dive-card span">
+          <h4 data-i18n="dive.p3.c4.h4">它解锁什么</h4>
+          <p data-i18n="dive.p3.c4.p">同一套节律画像，向四个方向放大：</p>
+          <div class="chips">
+            <span class="chip" data-i18n="dive.p3.c4.chip0">预测式 QoS · 高峰前调度</span>
+            <span class="chip" data-i18n="dive.p3.c4.chip1">无感节能 · 空闲深度休眠</span>
+            <span class="chip" data-i18n="dive.p3.c4.chip2">固件升级时机 · 零打扰窗口</span>
+            <span class="chip" data-i18n="dive.p3.c4.chip3">作息感知与告警 · 偏离即信号</span>
+          </div>
+        </div>
+      </div>
+      <div class="dive-next">
+        <div class="dn-t" data-i18n="dive.p3.next.t">正在打的深度</div>
+        <ul>
+          <li data-i18n="dive.p3.next.li0">频域分解在嵌入式上的算子选型与代价</li>
+          <li data-i18n="dive.p3.next.li1">"最小可用画像"的评估标准——多准才算够用</li>
+          <li data-i18n="dive.p3.next.li2">规则 ⇄ 边缘 AI 切换的回退语义</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== P4 · Self-healing / Optimizer ===== -->
+    <div class="dive reveal" id="dive-p4">
+      <div class="dive-head">
+        <span class="pn" aria-hidden="true">P4</span>
+        <div class="ht">
+          <h3 data-i18n="dive.p4.h3">Self-healing / Optimizer — 从拓扑定位瓶颈</h3>
+          <span class="one" data-i18n="dive.p4.one">把"哪里堵了"变成拓扑上的可计算问题——核心专利方向</span>
+          <span class="crate">vektor-care-engine · optimizer（并行推进中）</span>
+        </div>
+      </div>
+      <p class="section-lede" data-i18n="dive.p4.lede">
+        自愈的第一性问题不是"怎么修"，而是<span class="hl">"瓶颈到底在哪"</span>。我们的答案是把瓶颈定位变成拓扑问题：
+        从 DataElements 树投影出资源拓扑，沿 mesh 递归归因，媒介 × 角色正交建模——
+        带宽争用闭环已经在真实硬件上实证这条路。
+      </p>
+      <div class="dive-grid">
+        <div class="dive-card">
+          <h4 data-i18n="dive.p4.c0.h4">拓扑投影与递归归因（专利方向）</h4>
+          <p data-i18n="dive.p4.c0.p">DataElements → 资源拓扑；争用沿 fronthaul / backhaul / WAN 递归向上归因，跨 mesh 节点定位真正的饱和点，而不是只看症状出现的那一跳。</p>
+        </div>
+        <div class="dive-card">
+          <h4 data-i18n="dive.p4.c1.h4">检测 → 证据 → 处置 → 验证</h4>
+          <p data-i18n="dive.p4.c1.p">case 状态机闭环：EMA + 持续窗口检测、per-client 占比聚合、三层门槛判定——动作之后必须验证，自愈才算数。</p>
+        </div>
+        <div class="dive-card">
+          <h4 data-i18n="dive.p4.c2.h4">中立事实纪律</h4>
+          <p data-i18n="dive.p4.c2.p">设备只说"哪个资源饱和、谁占比多少"，绝不判断"该保护谁"——价值判断留给持有用户上下文的云端。</p>
+        </div>
+        <div class="dive-card">
+          <h4 data-i18n="dive.p4.c3.h4">Optimizer 自治 <span class="planned">待合并</span></h4>
+          <p data-i18n="dive.p4.c3.p">信道 / 拓扑优化作为自治优化器，在独立分支并行推进（代码与设计文档待合并）——case 处置当下的恶化，Optimizer 持续改善结构本身。占位见文末路线图，合并后展开。</p>
+        </div>
+      </div>
+      <div class="dive-next">
+        <div class="dn-t" data-i18n="dive.p4.next.t">正在打的深度</div>
+        <ul>
+          <li data-i18n="dive.p4.next.li0">递归归因在深拓扑下的收敛性与停止条件</li>
+          <li data-i18n="dive.p4.next.li1">动作编排的回滚与验证语义——"修坏了"必须可撤销</li>
+          <li data-i18n="dive.p4.next.li2">case 处置与 Optimizer 自治的职责边界</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== P5 · Forge ===== -->
+    <div class="dive reveal" id="dive-p5">
+      <div class="dive-head">
+        <span class="pn" aria-hidden="true">P5</span>
+        <div class="ht">
+          <h3 data-i18n="dive.p5.h3">Forge — 让一切真正跑在硅片上</h3>
+          <span class="one" data-i18n="dive.p5.one">共享嵌入式固件工程工作区，与它的愿景</span>
+          <span class="crate">forge-core · shared embedded workspace</span>
+        </div>
+      </div>
+      <p class="section-lede" data-i18n="dive.p5.lede">
+        软件栈再好，落不到真实硬件上就什么都不是。Forge 把"固件工程"沉淀为<span class="hl">可执行的共享资产</span>：
+        构建、烧录、验证、调试网络、runbook 与日志——
+        带宽争用的硬件在环 E2E，正是跑在它之上。
+      </p>
+      <div class="dive-grid">
+        <div class="dive-card">
+          <h4 data-i18n="dive.p5.c0.h4">构建与烧录</h4>
+          <p data-i18n="dive.p5.c0.p">OpenWrt / prplOS / Fabric 构建链——从源码到可烧录镜像的可重复路径，不靠某台"碰巧能编过"的机器。</p>
+        </div>
+        <div class="dive-card">
+          <h4 data-i18n="dive.p5.c1.h4">验证与安全网</h4>
+          <p data-i18n="dive.p5.c1.p">硬件验证流程 + sysupgrade 安全——升级失败不能变砖，验证不过不能上设备。</p>
+        </div>
+        <div class="dive-card">
+          <h4 data-i18n="dive.p5.c2.h4">运维知识资产化</h4>
+          <p data-i18n="dive.p5.c2.p">调试网络、runbook、workflow 与日志沉淀——硬件工程知识可执行、可传承，而不是留在某个人的终端历史里。</p>
+        </div>
+        <div class="dive-card">
+          <h4 data-i18n="dive.p5.c3.h4">愿景：hardware-in-the-loop 平台</h4>
+          <p data-i18n="dive.p5.c3.p">从共享工作区走向自动化硬件在环——让每一次服务变更都能在真实硅片上回归，把"CI 跑不完的事"也变成基础设施。</p>
+        </div>
+      </div>
+      <div class="dive-next">
+        <div class="dn-t" data-i18n="dive.p5.next.t">正在打的深度</div>
+        <ul>
+          <li data-i18n="dive.p5.next.li0">多设备床位的编排与隔离</li>
+          <li data-i18n="dive.p5.next.li1">真实 RF 环境下测试的可复现性</li>
+          <li data-i18n="dive.p5.next.li2">硬件回归最小集的设计——哪些必须上真机，哪些可以留在回放</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 07 · 流向何方（已立项未来 + Optimizer 占位） ================= -->
+<section id="sec-07">
+  <div class="wrap">
+    <div class="tag reveal" data-i18n="fut.tag">07 · 流向何方</div>
+    <h2 class="reveal" data-i18n="fut.h2">河的下游：已立项的未来</h2>
+    <p class="section-lede reveal" data-i18n="fut.lede">
+      此刻的两条主线收口之后，这条河接着往哪流。这里只列<strong style="color:var(--ink)">已立项、已排期</strong>的方向——
+      每一项都以前面 03–06 的底座为前提，不是愿望清单。
+    </p>
+
+    <div class="fut-grid">
+      <div class="fut reveal">
+        <div class="f-top">
+          <h3>Client Steering</h3>
+          <span class="planned" data-i18n="river.future.steer.planned">计划中</span>
+        </div>
+        <div class="oid">Device.X_VEKLUS_Steering.*</div>
+        <p data-i18n="river.future.steer.p">vektor-core 的独立大服务，负责<strong style="color:var(--ink)">所有 client 的最佳连接点决策</strong>，与 Care Engine 委托路径解耦。</p>
+        <ul>
+          <li data-i18n="river.future.steer.li0">band / AP / association 三维选点</li>
+          <li data-i18n="river.future.steer.li1">pre-association band steering</li>
+          <li data-i18n="river.future.steer.li2">post-association client steering</li>
+        </ul>
+      </div>
+
+      <div class="fut reveal">
+        <div class="f-top">
+          <h3 data-i18n="river.future.qoe.h3">QoE 体验度量</h3>
+          <span class="planned" data-i18n="river.future.qoe.planned">计划中</span>
+        </div>
+        <div class="oid" data-i18n="river.future.qoe.oid">三类 QoE + 意图驱动阈值</div>
+        <p data-i18n="river.future.qoe.p">不追求纯理论指标，而是<strong style="color:var(--ink)">识别趋势、检测对正常行为的偏离</strong>，在用户被影响前触发动作。</p>
+        <ul>
+          <li data-i18n="river.future.qoe.li0">application QoE（应用级）</li>
+          <li data-i18n="river.future.qoe.li1">device-health QoE（设备健康）</li>
+          <li data-i18n="river.future.qoe.li2">location QoE（家庭整体）</li>
+        </ul>
+      </div>
+
+      <div class="fut reveal">
+        <div class="f-top">
+          <h3 data-i18n="river.future.load.h3">负载 / 拓扑感知 Steering</h3>
+          <span class="planned" data-i18n="river.future.load.planned">原型 → GA</span>
+        </div>
+        <div class="oid">Throughput-optimized · AI / ML</div>
+        <p data-i18n="river.future.load.p">Steering 的演进终点——从规则到模型，让选点<strong style="color:var(--ink)">感知吞吐、负载与拓扑</strong>。</p>
+        <ul>
+          <li data-i18n="river.future.load.li0">ToS-aware client steering</li>
+          <li data-i18n="river.future.load.li1">吞吐优化选点（AI/ML，原型）</li>
+          <li data-i18n="river.future.load.li2">结合 FlowIQ 负载趋势 + 拓扑做仲裁</li>
+        </ul>
+      </div>
+
+      <!-- Optimizer 占位卡：代码与设计文档尚未合并，先以虚线卡占位，合并后展开 -->
+      <div class="fut stub reveal">
+        <div class="f-top">
+          <h3 data-i18n="fut.opt.h3">Optimizer · 信道与拓扑自治优化</h3>
+          <span class="planned" data-i18n="fut.opt.st">待合并 · 占位</span>
+        </div>
+        <div class="oid" data-i18n="fut.opt.oid">代码与设计文档在独立分支推进中</div>
+        <p data-i18n="fut.opt.p">与 case 处置互补的<strong style="color:var(--ink)">自治优化器</strong>：case 处置当下的恶化，Optimizer 持续改善结构本身。合并后此卡将展开为完整一节。</p>
+        <ul>
+          <li data-i18n="fut.opt.li0">自治优化循环（观测 → 评估 → 调整）</li>
+          <li data-i18n="fut.opt.li1">信道 / 拓扑策略与回滚语义</li>
+          <li data-i18n="fut.opt.li2">与 Care Engine case 处置的职责边界</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="fut-note reveal" data-i18n="river.note">
+      <b>这些能力彼此咬合</b>——steering 选点要看 QoE 与 FlowIQ 负载，负载感知仲裁又依赖拓扑事实。
+      正是它们之间的耦合，要求 03–06 的底座先稳：<b>底座不稳，上面每一项都是空中楼阁</b>。
+    </p>
   </div>
 </section>
 
@@ -2146,6 +2419,111 @@
       'onb.card.sum.st': '✓ stable',
       'onb.card.sum.c': 'The one-line config that is "turnkey" on a closed platform is, on an open stack, <span class="k">certificate scheme + standard gaps + vendor support + real RF</span> stacked into four things.',
       'onb.card.sum.l': 'But once paved, every block became an asset we control and can evolve — that is the other side of the reason for "no rush to merge right now".',
+
+      'hero.toc': '<a href="#sec-01">01 Positioning</a><span class="sep">·</span><a href="#sec-02">02 System Overview</a><span class="sep">·</span><a href="#sec-03">03 Time River</a><span class="sep">·</span><a href="#sec-04">04 Two Tracks</a><span class="sep">·</span><a href="#sec-05">05 Why It Is Hard</a><span class="sep">·</span><a href="#sec-06">06 Technical Deep Dives</a><span class="sep">·</span><a href="#sec-07">07 Where It Flows</a>',
+
+      'dive.tag': '06 · Technical Deep Dives',
+      'dive.h2': 'The five pillars that underpin all of this, taken apart one by one',
+      'dive.lede': 'The earlier sections answered "what we are tackling now, and why it is hard". This chapter zooms in — pulling apart each of the <strong style="color:var(--ink)">five technical pillars</strong> that sustain the whole system: what problem each solves, what its core mechanism is, and how deep we are going. We follow the data chain bottom-up — <strong style="color:var(--ink)">see → recognize → understand → act</strong> — and finish with Forge, which carries it all onto real silicon. This chapter will deepen as the engineering does.',
+      'dive.map': '<a class="step" href="#dive-p1">P1 Flow / FlowIQ · See &amp; Measure</a><span class="sep">→</span><a class="step" href="#dive-p2">P2 Identity · Recognize</a><span class="sep">→</span><a class="thru" href="#dive-p3">P3 Profiling · Understand</a><span class="sep">→</span><a class="step" href="#dive-p4">P4 Self-healing · Act</a><span class="sep">｜</span><a class="step" href="#dive-p5">P5 Forge · Underpins hardware</a>',
+
+      'dive.p1.h3': 'Flow / FlowIQ — See every flow, then turn it into math',
+      'dive.p1.one': 'Twin sensing-layer services: nDPI semantic identification + sliding-window measurement within embedded budget',
+      'dive.p1.lede': 'Every capability above takes its input from here. <span class="hl">Flow</span> does per-flow deep identification via nDPI; its emitted <code>app.category</code> is already a fine semantic class, not a coarse "Web" bucket. <span class="hl">FlowIQ</span> turns traffic into computable math — per-flow <code>bytes_rate</code> sliding windows, device activity primitives, periodicity learning, and internal IP→MAC resolution.',
+      'dive.p1.c0.h4': 'Semantic-level flow identification',
+      'dive.p1.c0.p': 'nDPI per-flow deep identification, categories down to application semantics. It provides the "vocabulary" for profiling and attribution above — see flows unclearly, and everything after is guesswork.',
+      'dive.p1.c1.h4': 'Record / Playback',
+      'dive.p1.c1.p': 'Flow Events can be recorded and reproduced on replay. This is the root of the algorithm regression system and the carrier for the "capture at home, tune on replay" workflow.',
+      'dive.p1.c2.h4': 'Sliding window within embedded budget',
+      'dive.p1.c2.p': 'Per-flow <code>bytes_rate</code> sliding windows persist within CPE-class memory budget; device activity primitives are consumed directly by Care Engine and Profiling.',
+      'dive.p1.c3.h4': 'From in-process provider to standalone service',
+      'dive.p1.c3.p': 'FlowIQ was promoted from an in-process provider to a standalone service — decoupling the measurement responsibility from its consumers, a deliberate boundary-clarification refactor.',
+      'dive.p1.next.t': 'Depth currently being drilled',
+      'dive.p1.next.li0': 'The boundary between fastpath and capture overhead — how to get "see everything" and "run fast" simultaneously',
+      'dive.p1.next.li1': 'The memory / accuracy trade-off curve of the sliding window',
+      'dive.p1.next.li2': 'How replay regression covers the long tail of real home traffic',
+
+      'dive.p2.h3': 'Device Identification — Recognizing every device in the age of MAC randomization',
+      'dive.p2.one': 'The authoritative anchor for all per-client attribution; one wrong merge corrupts everything above',
+      'dive.p2.lede': 'No matter how accurately FlowIQ computes, if "who is this" is misidentified, all attribution is wasted. Identity gives every device a <code>StableId</code> (UUID v4) stable across reboot / instance reordering, and through <span class="hl">MAC Stitching</span> merges multiple MACs from the same physical device back into one identity — the most unforgiving link in the capability chain.',
+      'dive.p2.c0.h4': 'StableId lifecycle',
+      'dive.p2.c0.p': 'UUID v4 anchor stable across reboot / instance reordering; identity lifecycle consistency is a design constraint, not a retrospective patch.',
+      'dive.p2.c1.h4': 'MAC Stitching (key)',
+      'dive.p2.c1.p': 'Modern endpoints — MAC randomization, multiple interfaces, cross-medium roaming — scatter one device into multiple "ghosts"; stitching merges them back into a single identity.',
+      'dive.p2.c2.h4': 'Device Typing',
+      'dive.p2.c2.p': 'Device type identification stacked on top of identity, providing device semantics for profiling and policy — "this is a TV" and "this is a phone" call for completely different strategies.',
+      'dive.p2.c3.h4': 'Identity as anchor',
+      'dive.p2.c3.p': "FlowIQ's IP→MAC, Profiling's per-device profiles, Care Engine's per-client attribution — all take Identity as the authority. Its correctness is amplified by every link in the chain.",
+      'dive.p2.next.t': 'Depth currently being drilled',
+      'dive.p2.next.li0': 'Evidence sources and confidence fusion for stitching — what signals prove "it is the same device"',
+      'dive.p2.next.li1': 'Merge strategy under randomized MACs, and the asymmetry between the cost of false merge vs missed merge',
+      'dive.p2.next.li2': 'Consistency contract between identity lifecycle and upstream state',
+
+      'dive.p3.h3': 'Profiling — Moving the home rhythm from time domain to frequency domain',
+      'dive.p3.one': 'Local-first home rhythm engine; PII never leaves the router',
+      'dive.p3.flag': 'Flagship pillar',
+      'dive.p3.lede': 'This is the pillar we invest in most heavily. Routines are fundamentally a <span class="hl">periodic signal</span> — pushing the time-domain observation of "who does what, when" into frequency-domain rhythm decomposition, so profiling moves from "statistics" to "signal processing". All learning happens locally on-device; only anonymized segments go out.',
+      'dive.p3.c0.h4': 'L0→L4 layered pipeline',
+      'dive.p3.c0.p': 'Session Facts → Buckets → Slot Profiles → Pattern → Head; 3h bucketing and EMA slot profiles converge unbounded observations into bounded state.',
+      'dive.p3.c1.h4': 'Time domain → frequency domain',
+      'dive.p3.c1.p': 'Periodicity is the essence of home rhythms. The frequency-domain view turns "the daily 7pm peak" into a decomposable, predictable signal component — not a hand-tuned rule threshold.',
+      'dive.p3.c2.h4': 'Runs on 512MB',
+      'dive.p3.c2.p': 'Bounded memory, incremental updates, no GPU assumption — running the algorithm persistently on CPE-class resources is the product of a series of edge engineering enhancements.',
+      'dive.p3.c3.h4': 'Deterministic rules ⇄ edge AI, switchable',
+      'dive.p3.c3.p': 'Same feature surface, two inference backends: deterministic algorithms as the floor — interpretable, debuggable; edge AI pluggable on top. Elasticity is an architecture property, not a bet on one route.',
+      'dive.p3.c4.h4': 'What it unlocks',
+      'dive.p3.c4.p': 'The same rhythm profile amplified in four directions:',
+      'dive.p3.c4.chip0': 'Predictive QoS · pre-peak scheduling',
+      'dive.p3.c4.chip1': 'Transparent energy saving · idle deep sleep',
+      'dive.p3.c4.chip2': 'Firmware upgrade timing · zero-disturbance window',
+      'dive.p3.c4.chip3': 'Routine-aware alerting · deviation is a signal',
+      'dive.p3.next.t': 'Depth currently being drilled',
+      'dive.p3.next.li0': 'Operator selection and cost of frequency-domain decomposition on embedded hardware',
+      'dive.p3.next.li1': 'Evaluation standard for "minimum viable profile" — how accurate is accurate enough',
+      'dive.p3.next.li2': 'Fallback semantics for the rule ⇄ edge AI toggle',
+
+      'dive.p4.h3': 'Self-healing / Optimizer — Locating bottlenecks from topology',
+      'dive.p4.one': 'Turning "where is the congestion" into a computable topology problem — core patent direction',
+      'dive.p4.lede': 'The first-principle question for self-healing is not "how to fix it" but <span class="hl">"where exactly is the bottleneck"</span>. Our answer: turn bottleneck location into a topology problem. Project a resource topology from the DataElements tree, recursively attribute along mesh, orthogonally model medium × role — the bandwidth-contention closed loop is already proving this approach on real hardware.',
+      'dive.p4.c0.h4': 'Topology projection &amp; recursive attribution (patent direction)',
+      'dive.p4.c0.p': 'DataElements → resource topology; contention attributed recursively up fronthaul / backhaul / WAN, locating the true saturation point across mesh nodes — not just the hop where the symptom appears.',
+      'dive.p4.c1.h4': 'Detect → Evidence → Act → Verify',
+      'dive.p4.c1.p': 'Case state-machine closed loop: EMA + sustained-window detection, per-client share aggregation, three-gate threshold — action must be followed by verification; only then does self-healing count.',
+      'dive.p4.c2.h4': 'Neutral fact discipline',
+      'dive.p4.c2.p': 'The device only says "which resource is saturated and who holds how much share" — it never decides "whom to protect". Value judgement stays with the cloud, which holds the user context.',
+      'dive.p4.c3.h4': 'Optimizer self-governance <span class="planned">pending merge</span>',
+      'dive.p4.c3.p': 'Channel / topology optimization as an autonomous optimizer, advancing in a parallel branch (code and design docs pending merge) — case remediation handles present degradation; Optimizer continuously improves the structure itself. Placeholder in the roadmap at the end; expands after merge.',
+      'dive.p4.next.t': 'Depth currently being drilled',
+      'dive.p4.next.li0': 'Convergence and stopping conditions of recursive attribution in deep topologies',
+      'dive.p4.next.li1': 'Rollback and verification semantics for action orchestration — "if we broke it" must be undoable',
+      'dive.p4.next.li2': 'Responsibility boundary between case remediation and Optimizer self-governance',
+
+      'dive.p5.h3': 'Forge — Making everything actually run on silicon',
+      'dive.p5.one': 'Shared embedded firmware engineering workspace, and its vision',
+      'dive.p5.lede': 'The best software stack is nothing if it cannot land on real hardware. Forge crystallizes "firmware engineering" into <span class="hl">executable shared assets</span>: build, flash, validate, debug networks, runbooks and logs — the bandwidth-contention hardware-in-the-loop E2E runs directly on top of it.',
+      'dive.p5.c0.h4': 'Build &amp; Flash',
+      'dive.p5.c0.p': 'OpenWrt / prplOS / Fabric build chain — a repeatable path from source to flashable image, not dependent on one machine that "happens to compile".',
+      'dive.p5.c1.h4': 'Validation &amp; Safety Net',
+      'dive.p5.c1.p': 'Hardware validation workflow + sysupgrade safety — a failed upgrade must not brick the device, and validation failures must not reach the device.',
+      'dive.p5.c2.h4': 'Ops knowledge as assets',
+      'dive.p5.c2.p': "Debug networks, runbooks, workflows and logged learnings — hardware engineering knowledge is executable and transferable, not trapped in someone's terminal history.",
+      'dive.p5.c3.h4': 'Vision: hardware-in-the-loop platform',
+      'dive.p5.c3.p': 'From shared workspace to automated hardware-in-the-loop — so that every service change can regress on real silicon, making "what CI cannot finish" part of the infrastructure too.',
+      'dive.p5.next.t': 'Depth currently being drilled',
+      'dive.p5.next.li0': 'Orchestration and isolation of multiple device benches',
+      'dive.p5.next.li1': 'Reproducibility of tests in a real RF environment',
+      'dive.p5.next.li2': 'Designing the minimum hardware regression set — what must run on real devices vs what can stay in playback',
+
+      'fut.tag': '07 · Where It Flows',
+      'fut.h2': 'Downstream: the already-committed future',
+      'fut.lede': 'After the two current tracks close, where this river flows next. Only <strong style="color:var(--ink)">already-committed, already-scheduled</strong> directions here — every item takes the foundations of 03–06 as its prerequisite, not a wish list.',
+      'fut.opt.h3': 'Optimizer · Autonomous channel &amp; topology optimization',
+      'fut.opt.st': 'pending merge · placeholder',
+      'fut.opt.oid': 'code and design docs advancing in a separate branch',
+      'fut.opt.p': 'An <strong style="color:var(--ink)">autonomous optimizer</strong> complementing case remediation: remediation handles present degradation, Optimizer continuously improves the structure itself. This card expands into a full section after merge.',
+      'fut.opt.li0': 'Autonomous optimization loop (observe → evaluate → adjust)',
+      'fut.opt.li1': 'Channel / topology strategy and rollback semantics',
+      'fut.opt.li2': 'Responsibility boundary with Care Engine case remediation',
     },
 
     he: {
@@ -2422,6 +2800,111 @@
       'onb.card.sum.st': '✓ יציב',
       'onb.card.sum.c': 'שורת התצורה האחת ש"מובנית" בפלטפורמה סגורה היא, במחסנית פתוחה, <span class="k">סכמת תעודות + פערי תקן + תמיכת יצרן + <bdi>RF</bdi> אמיתי</span> ערומות לארבעה דברים.',
       'onb.card.sum.l': 'אך לאחר שנסלל, כל בלוק הפך לנכס שאנו שולטים בו ויכולים לפתח — זהו הצד השני של הסיבה ל"אין למהר למזג כעת".',
+
+      'hero.toc': '<a href="#sec-01">01 מיצוב</a><span class="sep">·</span><a href="#sec-02">02 מבט־על מערכתי</a><span class="sep">·</span><a href="#sec-03">03 נהר הזמן</a><span class="sep">·</span><a href="#sec-04">04 שני המסלולים</a><span class="sep">·</span><a href="#sec-05">05 מדוע זה קשה</a><span class="sep">·</span><a href="#sec-06">06 צלילות טכניות</a><span class="sep">·</span><a href="#sec-07">07 לאן זורם</a>',
+
+      'dive.tag': '06 · צלילות טכניות',
+      'dive.h2': 'חמשת העמודים הנושאים את כל זה, מפורקים אחד אחד',
+      'dive.lede': 'החלקים הקודמים ענו על "מה אנו מתמודדים איתו עכשיו ומדוע זה קשה"; פרק זה מתקרב — ומפרק כל אחד מ<strong style="color:var(--ink)">חמשת עמודי התמיכה הטכניים</strong> של המערכת כולה: איזו בעיה כל אחד פותר, מהו המנגנון המרכזי שלו, ועד כמה עמוק אנו הולכים. אנו עוקבים אחרי שרשרת הנתונים מלמטה למעלה — <strong style="color:var(--ink)">לראות ← לזהות ← להבין ← לפעול</strong> — ומסיימים ב<bdi>Forge</bdi>, שנושא הכול אל סיליקון אמיתי. פרק זה יתעמק ככל שההנדסה תתקדם.',
+      'dive.map': '<a class="step" href="#dive-p1"><bdi>P1 Flow / FlowIQ</bdi> · לראות ולמדוד</a><span class="sep">←</span><a class="step" href="#dive-p2"><bdi>P2 Identity</bdi> · לזהות</a><span class="sep">←</span><a class="thru" href="#dive-p3"><bdi>P3 Profiling</bdi> · להבין</a><span class="sep">←</span><a class="step" href="#dive-p4"><bdi>P4 Self-healing</bdi> · לפעול</a><span class="sep">｜</span><a class="step" href="#dive-p5"><bdi>P5 Forge</bdi> · תשתית חומרה</a>',
+
+      'dive.p1.h3': '<bdi>Flow / FlowIQ</bdi> — לראות כל זרימה, ואחר כך להפוך אותה למתמטיקה',
+      'dive.p1.one': 'שני שירותי שכבת חישה: זיהוי סמנטי <bdi>nDPI</bdi> + מדידת חלון הזזה בתוך תקציב מוטמע',
+      'dive.p1.lede': 'כל הקלט לכל יכולת שמעל מגיע מכאן. <span class="hl"><bdi>Flow</bdi></span> מבצע זיהוי עמוק לכל זרימה באמצעות <bdi>nDPI</bdi>; ה<code>app.category</code> שהוא פולט הוא כבר מחלקה סמנטית עדינה, לא דלי "<bdi>Web</bdi>" גס. <span class="hl"><bdi>FlowIQ</bdi></span> הופך את התעבורה למתמטיקה ניתנת לחישוב — חלונות הזזה <code>bytes_rate</code> לכל זרימה, <bdi>device activity primitives</bdi>, למידת מחזוריות, ופתרון <bdi>IP→MAC</bdi> פנימי.',
+      'dive.p1.c0.h4': 'זיהוי זרימה ברמה סמנטית',
+      'dive.p1.c0.p': 'זיהוי עמוק לכל זרימה מבוסס <bdi>nDPI</bdi>, קטגוריות עד לסמנטיקת היישום. הוא מספק "אוצר המילים" לפרופיל וייחוס שמעל — לראות זרימות בטשטוש פירושו שכל השאר הוא ניחוש.',
+      'dive.p1.c1.h4': 'הקלטה / השמעה',
+      'dive.p1.c1.p': '<bdi>Flow Events</bdi> ניתנים להקלטה ולשחזור. זהו שורש מערכת רגרסיית האלגוריתמים וגם הנשא לתהליך "הקלטה בבית, כיוונון ב<bdi>replay</bdi>".',
+      'dive.p1.c2.h4': 'חלון הזזה בתוך תקציב מוטמע',
+      'dive.p1.c2.p': 'חלונות הזזה <code>bytes_rate</code> לכל זרימה שוהים בתוך תקציב זיכרון ברמת <bdi>CPE</bdi>; <bdi>device activity primitives</bdi> נצרכים ישירות על ידי <bdi>Care Engine</bdi> ו<bdi>Profiling</bdi>.',
+      'dive.p1.c3.h4': 'מ<bdi>provider</bdi> בתוך־תהליך לשירות עצמאי',
+      'dive.p1.c3.p': '<bdi>FlowIQ</bdi> קודם משירות בתוך־תהליך לשירות עצמאי — ניתוק אחריות המדידה מהצרכנים, ריפקטורינג מכוון של בהירות גבולות.',
+      'dive.p1.next.t': 'עומק שנקדח כעת',
+      'dive.p1.next.li0': 'הגבול בין <bdi>fastpath</bdi> לתקורת לכידה — כיצד להשיג "לראות הכול" ו"לרוץ מהר" בו זמנית',
+      'dive.p1.next.li1': 'עקומת הפשרה זיכרון / דיוק של חלון ההזזה',
+      'dive.p1.next.li2': 'כיצד רגרסיית <bdi>replay</bdi> מכסה את "הזנב הארוך" של תעבורת בית אמיתית',
+
+      'dive.p2.h3': '<bdi>Device Identification</bdi> — לזהות כל מכשיר בעידן ה<bdi>MAC</bdi>-אקראיות',
+      'dive.p2.one': 'העוגן הסמכותי לכל ייחוס לכל לקוח; מיזוג שגוי אחד מקלקל את כל השאר',
+      'dive.p2.lede': 'לא משנה כמה מדויק <bdi>FlowIQ</bdi> מחשב — אם "מי זה" זוהה שגוי, כל הייחוס בזבוז. <bdi>Identity</bdi> מעניק לכל מכשיר <code>StableId</code> (<bdi>UUID v4</bdi>) יציב על פני אתחול / סידור מחדש של מופעים, ודרך <span class="hl"><bdi>MAC Stitching</bdi></span> ממזג <bdi>MAC</bdi>ים מרובים של אותו מכשיר פיזי לזהות אחת — הקישור שאסור ביותר לטעות בו בכל שרשרת היכולות.',
+      'dive.p2.c0.h4': 'מחזור חיי <bdi>StableId</bdi>',
+      'dive.p2.c0.p': 'עוגן <bdi>UUID v4</bdi> יציב על פני אתחול / סידור מחדש; עקביות מחזור חיי זהות היא אילוץ תכנון, לא תיקון בדיעבד.',
+      'dive.p2.c1.h4': '<bdi>MAC Stitching</bdi> (מרכזי)',
+      'dive.p2.c1.p': 'מכשירים מודרניים — אקראיות <bdi>MAC</bdi>, ממשקים מרובים, נדידה בין מדיות — מפזרים מכשיר אחד ל"רוחות" מרובות; <bdi>stitching</bdi> תופר אותם בחזרה לזהות אחת.',
+      'dive.p2.c2.h4': '<bdi>Device Typing</bdi>',
+      'dive.p2.c2.p': 'זיהוי סוג מכשיר מונח על גבי הזהות, מספק סמנטיקת מכשיר לפרופיל ומדיניות — "זה טלוויזיה" ו"זה טלפון" קוראים לאסטרטגיות שונות לחלוטין.',
+      'dive.p2.c3.h4': 'זהות כעוגן',
+      'dive.p2.c3.p': 'ה<bdi>IP→MAC</bdi> של <bdi>FlowIQ</bdi>, פרופילי המכשירים של <bdi>Profiling</bdi>, ייחוס לכל לקוח של <bdi>Care Engine</bdi> — כולם מקבלים את <bdi>Identity</bdi> כסמכות. נכונותו מוגברת על ידי כל קישור בשרשרת.',
+      'dive.p2.next.t': 'עומק שנקדח כעת',
+      'dive.p2.next.li0': 'מקורות ראיות ומיזוג אמינות ל<bdi>stitching</bdi> — אילו אותות מוכיחים "הוא אותו מכשיר"',
+      'dive.p2.next.li1': 'אסטרטגיית מיזוג תחת <bdi>MAC</bdi>ים אקראיים, ואי-הסימטריה בין עלות מיזוג שגוי לעומת מיזוג שהוחמץ',
+      'dive.p2.next.li2': 'חוזה עקביות בין מחזור חיי זהות למצב שכבות עליונות',
+
+      'dive.p3.h3': '<bdi>Profiling</bdi> — העברת קצב הבית מתחום הזמן אל תחום התדר',
+      'dive.p3.one': 'מנוע קצב בית מקומי תחילה; <bdi>PII</bdi> לעולם אינו עוזב את הנתב',
+      'dive.p3.flag': 'עמוד דגל',
+      'dive.p3.lede': 'זהו העמוד שבו אנו משקיעים הכי הרבה. שגרות הן ביסודן <span class="hl">אות מחזורי</span> — דחיפת התצפית הזמנית של "מי עושה מה, מתי" אל פירוק קצב בתחום התדר, כך שהפרופיל עובר מ"סטטיסטיקה" ל"עיבוד אותות". כל הלמידה מתבצעת מקומית על המכשיר; כלפי חוץ יוצאים רק <bdi>segments</bdi> אנונימיים.',
+      'dive.p3.c0.h4': 'צינור שכבתי <bdi>L0→L4</bdi>',
+      'dive.p3.c0.p': '<bdi>Session Facts</bdi> ← <bdi>Buckets</bdi> ← <bdi>Slot Profiles</bdi> ← <bdi>Pattern</bdi> ← <bdi>Head</bdi>; <bdi>3h bucketing</bdi> ו<bdi>EMA slot profiles</bdi> מכנסים תצפיות בלתי חסומות למצב חסום.',
+      'dive.p3.c1.h4': 'תחום זמן ← תחום תדר',
+      'dive.p3.c1.p': 'מחזוריות היא מהות קצבי הבית. נקודת מבט התדר הופכת את "שיא הערב הקבוע ב־19:00" למרכיב אות שניתן לפרק ולחזות — לא לסף כלל מכוונן ידנית.',
+      'dive.p3.c2.h4': 'רץ על <bdi>512MB</bdi>',
+      'dive.p3.c2.p': 'זיכרון חסום, עדכונים מצטברים, ללא הנחת <bdi>GPU</bdi> — הרצת האלגוריתם ברציפות על משאבי רמת <bdi>CPE</bdi> היא תוצר של סדרת שיפורי הנדסה בקצה.',
+      'dive.p3.c3.h4': 'כללים דטרמיניסטיים ⇄ <bdi>edge AI</bdi>, ניתנים להחלפה',
+      'dive.p3.c3.p': 'אותו משטח מאפיינים, שני <bdi>backend</bdi>ים של הסקה: אלגוריתמים דטרמיניסטיים כרצפה — ניתנים לפרשנות וניפוי; <bdi>edge AI</bdi> ניתן לחיבור מעל. גמישות היא תכונה ארכיטקטונית, לא הימור על מסלול.',
+      'dive.p3.c4.h4': 'מה זה פותח',
+      'dive.p3.c4.p': 'אותו פרופיל קצב, מוגבר בארבעה כיוונים:',
+      'dive.p3.c4.chip0': '<bdi>QoS</bdi> חזוי · תזמון לפני שיא',
+      'dive.p3.c4.chip1': 'חיסכון בלתי מורגש בחשמל · שינה עמוקה בסרלות',
+      'dive.p3.c4.chip2': 'תזמון שדרוג קושחה · חלון ללא הפרעות',
+      'dive.p3.c4.chip3': 'התראות מודעות שגרה · סטייה היא אות',
+      'dive.p3.next.t': 'עומק שנקדח כעת',
+      'dive.p3.next.li0': 'בחירת אופרטורים ועלות פירוק בתחום התדר על חומרה מוטמעת',
+      'dive.p3.next.li1': 'קריטריון הערכה ל"פרופיל בר שימוש מינימלי" — כמה מדויק מספיק',
+      'dive.p3.next.li2': 'סמנטיקת נסיגה למתג הכללים ⇄ <bdi>edge AI</bdi>',
+
+      'dive.p4.h3': '<bdi>Self-healing / Optimizer</bdi> — איתור צווארי בקבוק מהטופולוגיה',
+      'dive.p4.one': 'הפיכת "היכן הפקק" לבעיה טופולוגית הניתנת לחישוב — כיוון פטנט מרכזי',
+      'dive.p4.lede': 'שאלת הראשוניות של ריפוי עצמי אינה "איך לתקן" אלא <span class="hl">"היכן בדיוק צוואר הבקבוק"</span>. תשובתנו: להפוך איתור צווארי בקבוק לבעיה טופולוגית. מהטל טופולוגיית משאבים מעץ <bdi>DataElements</bdi>, ייחוס רקורסיבי לאורך ה<bdi>mesh</bdi>, דוגמנות אורתוגונלית מדיום × תפקיד — הלולאה הסגורה של תחרות רוחב הפס כבר מוכיחה מסלול זה על חומרה אמיתית.',
+      'dive.p4.c0.h4': 'היטל טופולוגיה וייחוס רקורסיבי (כיוון פטנט)',
+      'dive.p4.c0.p': '<bdi>DataElements</bdi> ← טופולוגיית משאבים; תחרות מיוחסת רקורסיבית כלפי מעלה דרך <bdi>fronthaul / backhaul / WAN</bdi>, מאתרת את נקודת הרוויה האמיתית על פני צמתי <bdi>mesh</bdi> — לא רק את הקפיצה שבה מופיע הסימפטום.',
+      'dive.p4.c1.h4': 'זיהוי ← ראיות ← פעולה ← אימות',
+      'dive.p4.c1.p': 'לולאה סגורה של מכונת מצבי <bdi>case</bdi>: זיהוי <bdi>EMA</bdi> + חלון מתמשך, צבירת חלק לכל לקוח, הכרעת סף תלת-שערית — פעולה חייבת להיות מלווה באימות; רק אז ריפוי עצמי נחשב.',
+      'dive.p4.c2.h4': 'משמעת עובדתית ניטרלית',
+      'dive.p4.c2.p': 'המכשיר אומר רק "איזה משאב רווי ומי מחזיק כמה אחוז" — לעולם אינו מחליט "את מי להגן". שיפוט ערכי נשאר לענן, המחזיק בהקשר המשתמש.',
+      'dive.p4.c3.h4': 'ממשל עצמי של <bdi>Optimizer</bdi> <span class="planned">ממתין למיזוג</span>',
+      'dive.p4.c3.p': 'מיטוב ערוץ / טופולוגיה כ<bdi>optimizer</bdi> אוטונומי, מתקדם בענף מקביל (קוד ומסמכי תכנון ממתינים למיזוג) — ריפוי <bdi>case</bdi> מטפל בהרעה הנוכחית; <bdi>Optimizer</bdi> משפר ברציפות את המבנה עצמו. שומר מקום ב<bdi>roadmap</bdi> בסוף; מתפרש לאחר המיזוג.',
+      'dive.p4.next.t': 'עומק שנקדח כעת',
+      'dive.p4.next.li0': 'התכנסות ותנאי עצירה של ייחוס רקורסיבי בטופולוגיות עמוקות',
+      'dive.p4.next.li1': 'סמנטיקת <bdi>rollback</bdi> ואימות לתזמור פעולות — "שברנו משהו" חייב להיות ניתן לביטול',
+      'dive.p4.next.li2': 'גבול אחריות בין ריפוי <bdi>case</bdi> לממשל עצמי של <bdi>Optimizer</bdi>',
+
+      'dive.p5.h3': '<bdi>Forge</bdi> — לגרום לכל דבר לרוץ ממש על סיליקון',
+      'dive.p5.one': 'סביבת עבודה משותפת לקושחה מוטמעת, והחזון שלה',
+      'dive.p5.lede': 'מחסנית תוכנה מעולה אינה שווה כלום אם אינה מגיעה לחומרה אמיתית. <bdi>Forge</bdi> מגבש "הנדסת קושחה" ל<span class="hl">נכסים משותפים ניתנים להרצה</span>: בנייה, צריבה, אימות, רשתות <bdi>debug</bdi>, <bdi>runbooks</bdi> ויומנים — החומרה-בלולאה <bdi>E2E</bdi> של תחרות רוחב הפס רצה בדיוק מעליו.',
+      'dive.p5.c0.h4': 'בנייה וצריבה',
+      'dive.p5.c0.p': 'שרשרת בנייה <bdi>OpenWrt / prplOS / Fabric</bdi> — נתיב ניתן לחזרה ממקור לתמונה הניתנת לצריבה, לא תלוי במכונה שמקרה "מצליחה לקמפל".',
+      'dive.p5.c1.h4': 'אימות ורשת ביטחון',
+      'dive.p5.c1.p': 'תהליך אימות חומרה + בטיחות <bdi>sysupgrade</bdi> — כשל בשדרוג אסור להפוך את המכשיר ל<bdi>brick</bdi>, וכשל באימות אסור להגיע למכשיר.',
+      'dive.p5.c2.h4': 'ידע תפעול כנכסים',
+      'dive.p5.c2.p': 'רשתות <bdi>debug</bdi>, <bdi>runbooks</bdi>, <bdi>workflows</bdi> ויומנים שקועים — ידע הנדסת חומרה ניתן להרצה ולהורשה, לא כלוא בהיסטוריית הטרמינל של מישהו.',
+      'dive.p5.c3.h4': 'חזון: פלטפורמת חומרה-בלולאה',
+      'dive.p5.c3.p': 'ממרחב עבודה משותף לחומרה-בלולאה אוטומטית — כך שכל שינוי שירות יוכל לרגרס על סיליקון אמיתי, והפך "מה ש<bdi>CI</bdi> לא מסיים" לתשתית גם כן.',
+      'dive.p5.next.t': 'עומק שנקדח כעת',
+      'dive.p5.next.li0': 'תזמור ובידוד של מספר ספסלי מכשירים',
+      'dive.p5.next.li1': 'יכולת שחזור של בדיקות בסביבת <bdi>RF</bdi> אמיתית',
+      'dive.p5.next.li2': 'עיצוב קבוצת הרגרסיה המינימלית לחומרה — מה חייב לרוץ על מכשיר אמיתי לעומת מה יכול להישאר ב<bdi>playback</bdi>',
+
+      'fut.tag': '07 · לאן זורם',
+      'fut.h2': 'זרם התחתון: העתיד שכבר הוחלט',
+      'fut.lede': 'לאחר שני המסלולים הנוכחיים יסגרו, לאן הנהר הזה ממשיך לזרום. רק כיוונים <strong style="color:var(--ink)">שכבר הוחלטו, שכבר תוזמנו</strong> — כל פריט לוקח את יסודות 03–06 כתנאי מקדים שלו, לא רשימת משאלות.',
+      'fut.opt.h3': '<bdi>Optimizer</bdi> · מיטוב ערוץ וטופולוגיה אוטונומי',
+      'fut.opt.st': 'ממתין למיזוג · שומר מקום',
+      'fut.opt.oid': 'קוד ומסמכי תכנון מתקדמים בענף נפרד',
+      'fut.opt.p': '<strong style="color:var(--ink)"><bdi>optimizer</bdi> אוטונומי</strong> המשלים ריפוי <bdi>case</bdi>: ריפוי מטפל בהרעה הנוכחית, <bdi>Optimizer</bdi> משפר ברציפות את המבנה עצמו. כרטיסייה זו תתפרש לסעיף מלא לאחר המיזוג.',
+      'fut.opt.li0': 'לולאת מיטוב אוטונומית (תצפית ← הערכה ← התאמה)',
+      'fut.opt.li1': 'אסטרטגיית ערוץ / טופולוגיה וסמנטיקת <bdi>rollback</bdi>',
+      'fut.opt.li2': 'גבול אחריות עם ריפוי <bdi>case</bdi> של <bdi>Care Engine</bdi>',
     },
   };
 
@@ -2517,14 +3000,35 @@
           if (node && !node.classList.contains('lit')) {
             node.classList.add('lit');
             lit += 1;
-            // 过去 5 + 现在 1 = 6 个节点灌满到 ~92%，未来段留作虚线渐隐
-            setFill(Math.min(92, Math.round((lit / total) * 100) + 8));
+            // 河里只剩过去段：节点全点亮即灌满 100%——河的尽头就是现在
+            setFill(Math.min(100, Math.round((lit / total) * 100)));
           }
           nodeIO.unobserve(en.target);
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
     watchers.forEach(function (e) { nodeIO.observe(e); });
+  })();
+
+  /* ============================================================
+     阅读进度条 —— scaleX 跟随滚动（rAF 节流；compositor-only）
+     ============================================================ */
+  (function () {
+    var bar = document.getElementById('readBar');
+    if (!bar) return;
+    var ticking = false;
+    function update() {
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - window.innerHeight;
+      var p = max > 0 ? Math.min(1, (window.scrollY || doc.scrollTop || 0) / max) : 0;
+      bar.style.transform = 'scaleX(' + p + ')';
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
   })();
 </script>
 
